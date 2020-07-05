@@ -16,10 +16,10 @@ def index(request):
     return render(request, 'shop/index.html')
 
 def contact(request):
-    return HttpResponse('we are Contact')
+    return HttpResponse('This is the Contact Page')
 
 def login(request):
-    return HttpResponse('we are Login')
+    return HttpResponse('this is the Login Page')
 
 def checkout(request):
     return HttpResponse('we are Checkout')
