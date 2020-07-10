@@ -22,7 +22,7 @@ def login(request):
     return HttpResponse('this is the Login Page')
 
 def checkout(request):
-    return HttpResponse('we are Checkout')
+    return render(request, 'shop/checkout.html')
 
 def search(request):
     return HttpResponse('we are Search')
