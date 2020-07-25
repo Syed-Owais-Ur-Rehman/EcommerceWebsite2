@@ -49,6 +49,29 @@
             $("#mainNav").removeClass("navbar-shrink");
         }
     };
+    var navcolor = function(){
+        if ($("#mainNav").offset().top<100){
+            $(".navcol").addClass("nav-color");
+        } else {
+            $(".navcol").removeClass("nav-color");
+            
+        }
+
+    };
+    var navlinkadrem = function(){
+        if ($("#mainNav").offset().top>100){
+            $(".navcol").addClass("nav-link");
+        } else {
+            $(".navcol").removeClass("nav-link");
+            
+        }
+    };
+    //adding and removing of of nav-link class
+    navlinkadrem();
+    $(window).scroll(navlinkadrem);
+    // nav links have an initial color change
+    navcolor();
+    $(window).scroll(navcolor);
     // Collapse now if page is not at top
     navbarCollapse();
     // Collapse the navbar when page is scrolled
