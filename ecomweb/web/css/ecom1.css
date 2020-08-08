@@ -10167,12 +10167,24 @@ header.masthead {
   padding-bottom: 6rem;
   text-align: center;
   color: #fff;
-  /* background-image: url("h35.jpg"); */
+  /* background-image: url("h35.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover; */
+}
+header.mastheadlogin {
+  padding-top: 10.5rem;
+  padding-bottom: 6rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("hh35.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
   background-size: cover;
 }
+
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
   font-style: italic;
@@ -10189,10 +10201,10 @@ header.masthead .masthead-heading {
 }
 
 @media (min-width: 768px) {
-  header.masthead {
+  /* header.masthead {
     padding-top: 17rem;
     padding-bottom: 12.5rem;
-  }
+  } */
   header.masthead .masthead-subheading {
     font-size: 2.25rem;
     font-style: italic;
@@ -10200,7 +10212,8 @@ header.masthead .masthead-heading {
     margin-bottom: 2rem;
   }
   header.masthead .masthead-heading {
-    font-size: 4.5rem;
+    font-size: 2.0rem;
+    padding-top: 70px;
     font-weight: 700;
     line-height: 4.5rem;
     margin-bottom: 4rem;
