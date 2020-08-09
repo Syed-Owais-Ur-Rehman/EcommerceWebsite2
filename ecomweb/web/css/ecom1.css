@@ -569,6 +569,12 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+/* My  Css */
+@media (min-height: 842px) {
+  .footer {
+    bottom: 0;
+  }
+}
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -10093,11 +10099,19 @@ img::-moz-selection {
   border-radius: 100%;
 }
 
-#mainNav {
+
+.basic1 {
   padding-top: 1rem;
   padding-bottom: 1rem;
   background-color: #212529;
 }
+
+.basic2 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: #212529;
+}
+
 #mainNav .navbar-toggler {
   padding: 0.75rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -10128,11 +10142,18 @@ img::-moz-selection {
 }
 
 @media (min-width: 992px) {
-  #mainNav {
+  .basic1 {
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
     border: none;
     background-color: #fed136;
+    transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
+  }
+  .basic2 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    border: none;
+    background-color: transparent;
     transition: padding-top 0.3s ease-in-out, padding-bottom 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
@@ -10162,7 +10183,7 @@ img::-moz-selection {
     margin-right: 0;
   }
 }
-header.masthead {
+header.mhdefault {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
@@ -10173,7 +10194,7 @@ header.masthead {
   background-position: center center;
   background-size: cover; */
 }
-header.mastheadlogin {
+header.loginpic {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
