@@ -177,6 +177,28 @@ a:not([href]):hover {
   text-decoration: none;
 }
 
+/* My Css */
+.loginwidth {
+  background: rgba(0,0,0,0.5);
+  border-radius: 16px; 
+  width: 50%; 
+  padding: 3%; 
+  display: 
+  inline-block;
+}
+
+/* @media (min-width: 770px) {
+  .loginwidth {
+  width: 100%;
+  }
+} */
+
+@media (max-width: 510px) {
+  .loginwidth {
+  width: 100%;
+  }
+}
+
 pre,
 code,
 kbd,
@@ -234,6 +256,27 @@ button {
 button:focus {
   outline: 1px dotted;
   outline: 5px auto -webkit-focus-ring-color;
+}
+/* my css */
+input.form-control{
+  background: none;
+  border-top-color: transparent;
+  border-bottom-color: #fed136;
+  border-right-color: transparent;
+  border-left-color: transparent;
+
+}
+
+body.bodypic {
+  padding-top: 10.5rem;
+  padding-bottom: 6rem;
+  text-align: center;
+  color: #fff;
+  background-image: url("hh35.jpg");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
 }
 
 input,
@@ -2019,10 +2062,21 @@ pre code {
   border: 0;
 }
 
-.form-control {
+.check-control{
   display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
+  margin-left: auto;
+  margin-right: auto;
+  -webkit-text-stroke-width: 0.0065rem;
+  font-family:"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+}
+
+.form-control {
+  display: inline-block;
+  width: 40%;
+  margin-left: 10px;
+  margin-right: auto;
+  /* height: calc(1.5em + 0.75rem + 2px); */
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -2033,6 +2087,8 @@ pre code {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  -webkit-text-stroke-width: medium;
+  font-family:"Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 @media (prefers-reduced-motion: reduce) {
   .form-control {
@@ -2047,9 +2103,10 @@ pre code {
   color: transparent;
   text-shadow: 0 0 0 #495057;
 }
+/* Onclick Input Focus */
 .form-control:focus {
   color: #495057;
-  background-color: #fff;
+  background-color: transparent;
   border-color: #ffeeb5;
   outline: 0;
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 54, 0.25);
@@ -10187,14 +10244,14 @@ header.mhdefault {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
-  color: #fff;
+  /* color: #fff; */
   /* background-image: url("h35.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
   background-size: cover; */
 }
-header.loginpic {
+/* header.loginpic {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
   text-align: center;
@@ -10203,8 +10260,8 @@ header.loginpic {
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
-  background-size: cover;
-}
+  background-size: cover; 
+}*/
 
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
@@ -10563,4 +10620,77 @@ section#contact form#contactForm :-ms-input-placeholder {
   text-align: center;
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+form.signupform{
+  
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+/* Full-width input fields */
+input.signupform[type=text], input.signupform[type=password] {
+width: 100%;
+padding: 15px;
+margin: 5px 0 22px 0;
+display: inline-block;
+border: none;
+background: #f1f1f1;
+}
+
+input.signupform[type=text]:focus, input.signupform[type=password]:focus {
+background-color: #ddd;
+outline: none;
+}
+
+hr {
+border: 1px solid #f1f1f1;
+margin-bottom: 25px;
+}
+
+/* Set a style for all buttons */
+button.signupform {
+background-color: #4CAF50;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+cursor: pointer;
+width: 100%;
+opacity: 0.9;
+}
+
+button.signupform:hover {
+opacity:1;
+}
+/* Extra styles for the cancel button */
+.cancelbtn {
+padding: 14px 20px;
+background-color: #f44336;
+}
+
+/* Float cancel and signup buttons and add an equal width */
+.cancelbtn, .signupbtn {
+float: left;
+width: 50%;
+}
+
+/* Add padding to container elements */
+.container {
+padding: 16px;
+}
+
+/* Clear floats */
+.clearfix::after {
+content: "";
+clear: both;
+display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+.cancelbtn, .signupbtn {
+  width: 100%;
+}
 }
