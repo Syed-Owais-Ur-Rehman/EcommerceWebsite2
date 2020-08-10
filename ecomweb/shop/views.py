@@ -15,8 +15,8 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'shop/index.html')
 
-def contact(request):
-    return HttpResponse('This is the Contact Page')
+def admin(request):
+    return render(request, 'shop/admin.html')
 
 def login(request):
     return render(request, 'shop/login.html')
