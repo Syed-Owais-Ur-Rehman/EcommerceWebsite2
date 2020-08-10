@@ -19,7 +19,10 @@ def contact(request):
     return HttpResponse('This is the Contact Page')
 
 def login(request):
-    return HttpResponse('this is the Login Page')
+    return render(request, 'shop/login.html')
+
+def signup(request):
+    return render(request, 'shop/signup.html')  
 
 def checkout(request):
     return render(request, 'shop/checkout.html')
