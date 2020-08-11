@@ -1,0 +1,101 @@
+{% extends 'shop/basic2.html' %}
+{% load static %}
+{% block masthead %}
+
+<style>
+  body.bodypic {
+    padding-top: 10.5rem;
+    padding-bottom: 6rem;
+    text-align: center;
+    color: #fff;
+    background-image: url("{% static 'shop/pics/h29.jpg' %}");
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+  }
+
+  input.regform, textarea.regform {
+    background: none;
+    border-radius: 12px;
+    border-top-color: #fed136;
+    border-bottom-color: #fed136;
+    border-right-color: #fed136;
+    border-left-color: #fed136
+  }
+
+  header.mhdefault2 {
+    /* padding-top: 10.5rem; */
+    padding-bottom: 6rem;
+    text-align: center;
+    /* color: #fff; */
+  }
+</style>
+
+<header class="masthead mhdefault2">
+  <div class="masthead-subheading" style="color: #fed136; text-shadow: 3px 3px black; line-height: inherit; font-size: 500%;">Register Your Art</div>
+  <div class="signupwidth">
+    
+    <!-- <div class="masthead-heading text-uppercase" style="color: #ccc;;">Register Your Work and Make it Live</div> -->
+
+    <form action="/shop/addform/" method="POST" enctype="multipart/form-data" style="border-radius: 8px; background: rgba(0,0,0,0.92);" class="contactForm">{% csrf_token %} <!--border:1px solid #ccc; -->
+      <div class="container">
+        <i class="fas fa-user-edit" style="color: #fff; width: 20%; height: auto; padding-bottom: inherit; display: inline-flex;"></i>
+        <hr>
+
+        <div class="form-group">
+          <label for="name" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Full Name</b></label>
+          <i class="fas fa-user" style="color: #fed136;"></i>
+          <input type="text" placeholder="Enter Full Name" class="form-control regform" name="Name" style="width: 85%; color:#fed136;"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Email</b></label>
+          <i class="fas fa-envelope" style="color: #fed136;"></i>
+          <input type="email" name="email" placeholder="Enter Email" class="form-control regform" style="width: 85%; color:#fed136;" required>
+        </div>
+
+        <div class="form-group">
+          <label for="paintingname" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Name of Art Piece</b></label>
+          <i class="fas fa-paint-brush" style="color: #fed136;"></i>
+          <input type="text" name="name" class="form-control regform" style="width: 85%; color:#fed136;" id="exampleInputName"
+            placeholder="Enter Name of Piece" required="required">
+        </div>
+
+        <div class="form-group">
+          <label for="price" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Price of Art Piece</b></label>
+          <i class="fas fa-dollar-sign" style="color: #fed136;"></i>
+          <input type="number" name="price" min="0.01" step="0.01" max="25000" class="form-control regform" style="width: 85%; color:#fed136;" id="exampleInputName"
+            placeholder="Enter Price" required="required">
+        </div>
+
+        <div class="form-group">
+          <label for="date" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Published Date</b></label>
+          <i class="fas fa-calendar-alt" style="color: #fed136;"></i>
+          <input type="date" name="date" class="form-control regform" style="width: 85%; background:#fed136; color: #212529;" id="exampleInputName" required="required">
+        </div>
+
+        <div class="form-group">
+          <label for="paintingdescription" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Description Of Painting</b></label>
+          <textarea class="form-control regform" name="desc" id="exampleFormControlTextarea1" style="width: 85%; color:#fed136; background: transparent;" rows="5"
+            placeholder="Enter Description" required="required"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="imageupload" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Upload image of your painting here:</b></label>
+          <!-- <label for="img">Select image:</label> -->
+          <input class="form-control regform" name="image" style="width: 60%; color: #ccc;" type="file" id="img" accept="image/*">
+        </div>
+
+        <div class="clearfix">
+          <button class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Publish</button>
+        </div>
+    </form>
+  </div>
+  </header>
+
+    <!-- <a target="_blank" href="" class=" linkings mt-3 d-flex"> Goto homepage</a>
+    <h1>Upload your paintainings and advertise for free!</h1> -->
+
+    {% endblock %}
