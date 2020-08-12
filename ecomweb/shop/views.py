@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Product    #, Contact
+from .models import Product
+from django.contrib import messages
 from math import ceil
 from django.contrib.auth.models import User
 
@@ -69,15 +70,18 @@ def signup(request):
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.save()
-        message.success(request, "Your Account Has Been Successfully Created")
-        return redirect("shop/signup.html")
+        return redirect("/shop/success")
 
-    else:
-        return HttpResponse("404 - Not Found")
+    # else:
+    #     return HttpResponse("404 - Not Found")
 
+    #check errors
 
+    return render(request, 'shop/signup.html') 
 
-    return render(request, 'shop/signup.html')  
+def success(request):
+    messages.success(request, "Your Account Has Been Successfully Created")
+    return render(request, 'shop/success.html') 
 
 def checkout(request):
     return render(request, 'shop/checkout.html')
