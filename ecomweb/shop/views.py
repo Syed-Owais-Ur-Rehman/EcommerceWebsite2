@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Product
 from django.contrib import messages
+from django.contrib.auth import authenticate, login as dj_login, logout
 from math import ceil
 from django.contrib.auth.models import User
 
@@ -36,6 +37,7 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 def admin(request):
+    messages.success(request, "You Have Logged In")
     return render(request, 'shop/admin.html')
 
 def addform(request):
@@ -53,6 +55,19 @@ def addform(request):
     return render(request, 'shop/addform.html')
 
 def login(request):
+    if request.method=="POST":
+        # Get the post parameters
+        loginusername = request.POST['username']
+        loginpassword = request.POST['password']
+
+        user = authenticate(username=loginusername, password=loginpassword)
+        if user is not None:
+            dj_login(request, user)
+            return redirect("/shop/admin")
+        else:
+            messages.error(request, "Invalid Credentials, Please Try Again")
+            return redirect("/shop/login")
+
     return render(request, 'shop/login.html')
 
 def signup(request):
