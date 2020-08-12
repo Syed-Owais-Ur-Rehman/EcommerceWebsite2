@@ -1,0 +1,23 @@
+{% extends 'shop/basic1.html' %}
+
+{% block masthead %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" style="margin-top: 86px;"role="alert">
+    <h4 class="alert-heading">{{ message.tags }}</h4>
+    <p>{{ message }}</p>
+    <hr>
+  </div>
+{% endfor %}
+
+
+<header class="masthead mhdefault">
+    <div class="signupwidth">
+
+        <div class="masthead-subheading" style="color:#212529; font-size: 3.0rem;">Login To Make Your Work Live</div>
+        <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/shop/login">Sign Up</button>
+    
+    </div>
+</header>
+
+{% endblock %}
