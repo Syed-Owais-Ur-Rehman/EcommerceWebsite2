@@ -16,23 +16,31 @@
   }
 </style>
 
+{% for message in messages %}
+<div class="alert alert-danger" style="margin-top: 86px; margin-right: 25%; margin-left: 25%; border-radius: 16px;"role="alert">
+    <h4 class="alert-heading">{{ message.tags }}</h4>
+    <p>{{ message }}</p>
+    <hr>
+  </div>
+{% endfor %}
+
 <header class="masthead loginpic">
     <div class="loginwidth">
         <i class="fas fa-user-circle" style="color: #fed136; width: 90px; height: 100px;"></i>
         <div class="masthead-subheading">Sign In</div>
-        <form class="contactForm">{% csrf_token %}
+        <form action="/shop/login/" method="POST">{% csrf_token %}
             <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
             <!-- <div class="masthead-heading text-uppercase">Sign In</div> -->
             <div class="form-group">
             <!-- <label for="inputEmail" class="sr-only">Email Address</label> -->
-            <i class="fas fa-envelope" style="color: #fed136;"></i>
-            <input type="email" id="email" class="form-control" placeholder="Email Address" required autofocus>
+            <i class="fas fa-user" style="color: #fed136;"></i>
+            <input type="text" name="username" id="username" class="form-control" style="color: #fed136;" placeholder="Username" required autofocus>
             </div>
             
             <div class="form-group">
             <!-- <label for="inputPassword" class="sr-only">Password</label> -->
             <i class="fas fa-key" style="color: #fed136;"></i>
-            <input type="password" id="password" class="form-control" placeholder="Password" required>
+            <input type="password" name="password" id="password" class="form-control" style="color: #fed136;" placeholder="Password" required>
             </div>
             
             <div class="form-group">
@@ -42,7 +50,7 @@
                 </label>
                 </div>
             </div>
-             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Login</a>
+             <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Login</button>
             <p class="mt-5 mb-3 text-muted check-control">&copy; 2020-2021</p>
         </form>
     </div>
