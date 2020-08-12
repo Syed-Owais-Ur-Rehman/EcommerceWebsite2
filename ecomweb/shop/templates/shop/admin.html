@@ -1,0 +1,21 @@
+{% extends 'shop/basic1.html' %}
+{% load static %}
+{% block masthead %}
+
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}" style="margin-top: 86px;"role="alert">
+    <h4 class="alert-heading">{{ message.tags }}</h4>
+    <p>{{ message }}</p>
+    <hr>
+  </div>
+{% endfor %}
+
+
+<header class="masthead loginpic">
+    <div class="loginwidth">
+        <div class="masthead-subheading">Sign In</div>
+    </div>
+</header>
+
+{% endblock %}
