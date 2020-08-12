@@ -7,8 +7,8 @@
         <div class="masthead-subheading" style="color:#212529; font-size: 3.0rem;">Sign Up</div>
         <!-- <div class="masthead-heading text-uppercase" style="color:#212529;"></div> -->
         <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a> -->
-        <form action="/signup" method="POST" style="border:1px solid #ccc; border-radius: 8px;" class="contactForm">
-            <div class="container">
+        <form action="/shop/signup/" method="POST" style="border:1px solid #ccc; border-radius: 8px;" class="contactForm">
+            <div class="container">{% csrf_token %}
                 <h1 class="check-control" style="font-size: 2.0rem;">Make An Account</h1>
                 <p class="check-control">Draw Your Own Business</p>
                 <hr>
@@ -22,14 +22,13 @@
 
                 <div class="form-group">
                     <label for="fname" class="check-control"><b>First Name</b></label>
-                    <i class="fas fa-user" style="color: #fed136;"></i>
+                    <i class="fas fa-user-tie" style="color: #fed136;"></i>
                     <input type="text" placeholder="Enter First Name" class="form-control" name="fname"
                         style="width: 85%;" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lname" class="check-control"><b>Last Name</b></label>
-                    <i class="fas fa-user-tie" style="color: #fed136;"></i>
                     <input type="text" placeholder="Enter Last Name" class="form-control" name="lname"
                         style="width: 85%;" required>
                 </div>
@@ -58,7 +57,7 @@
                 <div class="form-group">
                     <label class="check-control">
                         <input type="checkbox" checked="checked" name="remember" class="signupform"
-                            style="margin-bottom:15px"> Remember me
+                            style="margin-bottom:15px"><b> Remember me</b>
                     </label>
                 </div>
 
@@ -66,8 +65,8 @@
                         Privacy</a>.</p>
 
                 <div class="clearfix">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Sign Up</button>
+                    
+                    <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Sign Up</button>
                 </div>
         </form>
     </div>
