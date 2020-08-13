@@ -98,6 +98,19 @@ def success(request):
     messages.success(request, "Your Account Has Been Successfully Created")
     return render(request, 'shop/success.html') 
 
+def cart(request):
+    allprods = []
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(category = cat)
+        n = len(prod)
+        nslides = n//4 + ceil((n/4)-(n//4))
+        allprods.append([prod, range(1, nslides), nslides])
+
+    params = {'allprods' : allprods}
+    return render(request, 'shop/cart.html', params)
+
 def checkout(request):
     return render(request, 'shop/checkout.html')
 
