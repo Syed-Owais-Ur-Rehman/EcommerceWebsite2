@@ -1,0 +1,193 @@
+{% extends 'shop/basic1.html' %}
+
+{% block masthead %}
+
+<style>
+    .item-quantity {
+        font: inherit;
+        text-align: center;
+        border: none;
+        outline: none;
+        color: #111;
+        background-color: #fff;
+        box-shadow: 0 0 0 1px rgba(100, 100, 100, 0.1);
+        padding: 5px 10px;
+    }
+
+    .checkoutitemlabels {
+        display: flex;
+        width: inherit;
+        align-items: center;
+        justify-content: flex-start;
+        /* padding-bottom: 10px; */
+        border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+    }
+
+    .checkoutitemimage {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100px;
+        position: relative;
+    }
+
+    .checkoutitemdesc {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        line-height: 1.5em;
+        flex-grow: 8;
+    }
+
+
+    .itemlabels {
+        display: inline-block;
+        vertical-align: middle;
+        text-transform: uppercase;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        opacity: 0.6;
+    }
+
+    .cartitemrow-itemtitle {
+        display: flex;
+        width: inherit;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 0;
+        min-height: 70px;
+        border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+    }
+
+    .cartitemrow-image {
+        width: 100%;
+        height: 0;
+        padding-bottom: 100%;
+        background: no-repeat center center;
+        background-size: contain;
+    }
+
+    .cartitemrow-itemquantity {
+        display: inline-block;
+        vertical-align: middle;
+        white-space: nowrap;
+        min-width: 4em;
+        text-align: center;
+        font-size: 16px;
+    }
+
+    .cartitemrow-itemprice {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        white-space: nowrap;
+        text-align: right;
+        min-width: 20vw;
+    }
+
+    .cartitemrow-itemlist {
+        display: flex;
+        width: inherit;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 0;
+        min-height: 70px;
+        border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+    }
+
+    .cartitemrow-remove {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1.8em;
+        font-size: 20px;
+        font-family: helvetica, sans-serif;
+        font-weight: 100;
+        cursor: pointer;
+    }
+
+    .cart-subtotal {
+        margin-top: 30px;
+        text-align: right;
+    }
+
+    .quantity-stop {
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+    }
+
+    .button-itemremove {
+        background: transparent;
+        border: none;
+        padding: 0;
+    }
+</style>
+
+
+{% for product, range, nslides in allprods %}
+
+<header class="masthead mhdefault">
+    <div class="container check">
+        <div class="masthead-subheading" style="color:#212529;">Shopping Cart</div>
+        <!-- {% if product is null %} -->
+        <div class="masthead-heading text-uppercase" style="color:#212529;">Shopping Cart is Empty!</div>
+        <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a> -->
+        <!-- {% endif %} -->
+</header>
+{% for i in product %}
+<div class="container">
+
+    <!-- <h1 class="my-4">{{product.0.category}}</h1> -->
+    <div class="cartitemrow-itemtitle">
+        <span class="itemlabels">
+            <span>ITEM</span>
+        </span>
+        <div class="checkoutitemimage"></div>
+        <div class="checkoutitemdesc"></div>
+        <div class="cartitemrow-itemquantity">
+            <span class="itemlabels">
+                <span>QTY.</span>
+            </span>
+        </div>
+        <div class="cartitemrow-itemprice">
+            <span class="itemlabels">
+                <span>PRICE</span>
+            </span>
+        </div>
+    </div>
+    <div class="cartitemrow-itemlist" id="yui_3_17_2_1_1597301769396_261">
+        <div class="cartitemrow-remove">
+            <button class="button-itemremove" title="Remove Item" aria-label="Remove Item" data-test="remove-item">
+                <span aria-hidden="true">×</span></button>
+        </div>
+        <div class="checkoutitemimage">
+            <div class="cartitemrow-image"><img src="{{i.image.url}}" class="card-img-top" alt="..."></div>
+        </div>
+        <div class="checkoutitemdesc">
+            <div class="CartTableRow-itemTitle-1MDgZ">
+                <a href="https://hester-demo.squarespace.com/shop/lemons">item name</a>
+            </div>
+            <div style="opacity: 0.5;"></div>
+        </div>
+        <div class="cartitemrow-itemquantity">
+            <input type="text" pattern="[0-9]*" autocomplete="off" data-test="quantity-input"
+                class="quantity-stop item-quantity" value="6" style="width: 2rem;">
+        </div>
+        <div class="cartitemrow-itemprice">$60.00</div>
+    </div>
+{% endfor %}
+
+    <div class="cart-subtotal">
+        <span style="font-size: 16px; margin-right: 15px;">
+            <span>Subtotal</span>
+        </span>
+        <span style="font-size: 18px; display: inline-block; text-align: center;">$60.00</span>
+    </div>
+
+    <div style="text-align: right; line-height: 1.5rem; margin-right: -23px; margin-top: 23px; margin-bottom: 30px;">
+        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Checkout</a>
+    </div>
+</div>
+
+
+
+{% endfor %}
+{% endblock %}
