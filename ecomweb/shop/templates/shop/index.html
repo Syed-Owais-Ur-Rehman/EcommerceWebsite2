@@ -29,7 +29,10 @@
 
           body .carousel-control-prev-icon,
           body .carousel-control-next-icon{
-          background-color: blue;
+            background-color: #fed136;
+            width: 23%;
+            height: 59px;
+            border-radius: 16px;
           }
 
           .carousel-control-prev,
@@ -49,7 +52,7 @@
 
     <!--Slideshow starts here -->
     {% for product, range, nslides in allprods %}
-    <h1 class="my-4">{{product.0.category}}</h1>
+    <h1 style="margin-top: 6rem !important;" >{{product.0.category}}</h1>
     <div class = "row">
 <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
     <ul class="carousel-indicators">
@@ -67,13 +70,14 @@
 
         {% for i in product %}
         <div class="col-xs-3 col-sm-3 col-md-3">
-          <div class="card align-items-center" style="width: 18rem;">
-            <img src="{{i.image.url}}" class="card-img-top" alt="...">
+          <div class="card align-items-center" style="width: 18rem; border: none; text-align: center;">
+            <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">{{i.product_name}}</h5>
-              <p class="card-text">{{i.desc|slice:"0:100"}}...</p>
-              <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
-              <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a>
+              <p class="card-text">$ {{i.price}}</p>
+              <!-- {{i.desc|slice:"0:100"}}... -->
+              <!-- <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+              <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
             </div>
           </div>
         </div>
@@ -90,10 +94,10 @@
 </div>
     <!-- left and right controls for the slide -->
     <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
+        <span class="carousel-control-prev-icon" style="margin-right: -2.0%;" aria-hidden="true"></span>
     </a>
     <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
+      <span class="carousel-control-next-icon" style="margin-right: -3.3%;" aria-hidden="true"></span>
     </a>
     </div>
     {% endfor %}
