@@ -17,8 +17,8 @@
 </style>
 
 {% for message in messages %}
-<div class="alert alert-danger" style="margin-top: 86px; margin-right: 25%; margin-left: 25%; border-radius: 16px;"role="alert">
-    <h4 class="alert-heading">{{ message.tags }}</h4>
+<div class="alert alert-danger" style="margin-top: initial; margin-right: 25%; margin-left: 25%; border-radius: 16px;"role="alert">
+    <h4 class="alert-heading" style="text-transform: uppercase;">{{ message.tags }}!</h4>
     <p>{{ message }}</p>
     <hr>
   </div>
