@@ -75,7 +75,7 @@
                 <h5 class="card-title">{{i.product_name}}</h5>
                 <p class="card-text">$ {{i.price}}</p>
                 <!-- {{i.desc|slice:"0:100"}}... -->
-                <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+                <button id="{{i.product_name}} % {{i.category}} % {{i.price}} % {{i.desc}} % {{i.image.url}}" class="btn btn-primary cart">Add To Cart</button>
                 <!-- <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
               </div>
             </div>
