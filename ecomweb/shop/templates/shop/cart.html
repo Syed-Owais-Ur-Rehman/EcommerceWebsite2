@@ -132,48 +132,15 @@
         <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a> -->
         <!-- {% endif %} -->
 </header>
-<!-- {% for i in product %}
-<div class="container">
 
-    <h1 class="my-4">{{product.0.category}}</h1>
-    <div class="cartitemrow-itemtitle">
-        <span class="itemlabels">
-            <span>ITEM</span>
-        </span>
-        <div class="checkoutitemimage"></div>
-        <div class="checkoutitemdesc"></div>
-        <div class="cartitemrow-itemquantity">
-            <span class="itemlabels">
-                <span>QTY.</span>
-            </span>
-        </div>
-        <div class="cartitemrow-itemprice">
-            <span class="itemlabels">
-                <span>PRICE</span>
-            </span>
-        </div>
-    </div>
-    <div class="cartitemrow-itemlist" id="yui_3_17_2_1_1597301769396_261">
-        <div class="cartitemrow-remove">
-            <button class="button-itemremove" title="Remove Item" aria-label="Remove Item" data-test="remove-item">
-                <span aria-hidden="true">×</span></button>
-        </div>
-        <div class="checkoutitemimage">
-            <div class="cartitemrow-image"><img src="{{i.image.url}}" class="card-img-top" alt="..."></div>
-        </div>
-        <div class="checkoutitemdesc">
-            <div class="CartTableRow-itemTitle-1MDgZ">
-                <a href="https://hester-demo.squarespace.com/shop/lemons">item name</a>
-            </div>
-            <div style="opacity: 0.5;"></div>
-        </div>
-        <div class="cartitemrow-itemquantity">
-            <input type="text" pattern="[0-9]*" autocomplete="off" data-test="quantity-input"
-                class="quantity-stop item-quantity" value="6" style="width: 2rem;">
-        </div>
-        <div class="cartitemrow-itemprice">$60.00</div>
-    </div>
-{% endfor %} -->
+<!-- {% for i in product %} -->
+<div class="container" id="items">
+
+</div>
+<!-- {% endfor %} -->
+
+<!-- <input type="text" pattern="[0-9]*" autocomplete="off" data-test="quantity-input"
+            class="quantity-stop item-quantity" value="6" style="width: 2rem;"> -->
 
     <div class="cart-subtotal">
         <span style="font-size: 16px; margin-right: 15px;">
@@ -195,19 +162,32 @@
 {% block js %}
 <script>
 
-cart = JSON.parse(localStorage.getItem('cart'));
-
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+}
 console.log(cart);
-
-
-if (cart[idstr] != undefined) {
-    for(i in cart) {
-        let name = cart[i];
+var sum = 0;
+if ($.isEmptyObject(cart)) {
+    //if object is empty
+    mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+    $('#items').append(mystr);
+} else {
+    for(item in cart) {
+        let itemstring = item;
+        let itemarray = itemstring.split(" % ")
+        let itemname = itemarray[0]
+        let itemcategory = itemarray[1]
+        let itemprice = itemarray[2]
+        let itemdesc = itemarray[3]
+        let itemimage = itemarray[4]
+        // console.log(itemcategory,itemname,itemprice)
         // let qty = cart[item][0];
         // sum = sum + qty;
         mystr = `<div class="container">
 
-<h1 class="my-4">{{product.0.category}}</h1>
+<h1 class="my-4">${itemcategory}</h1>
 <div class="cartitemrow-itemtitle">
     <span class="itemlabels">
         <span>ITEM</span>
@@ -231,20 +211,17 @@ if (cart[idstr] != undefined) {
             <span aria-hidden="true">×</span></button>
     </div>
     <div class="checkoutitemimage">
-        <div class="cartitemrow-image"><img src="{{i.image.url}}" class="card-img-top" alt="..."></div>
+        <div class="cartitemrow-image"><img src="${itemimage}" class="card-img-top" alt="..."></div>
     </div>
     <div class="checkoutitemdesc">
         <div class="CartTableRow-itemTitle-1MDgZ">
-            <a href="https://hester-demo.squarespace.com/shop/lemons">item name</a>
+            <a href="https://hester-demo.squarespace.com/shop/lemons">${itemname}</a>
         </div>
         <div style="opacity: 0.5;"></div>
     </div>
-    <div class="cartitemrow-itemquantity">
-        <input type="text" pattern="[0-9]*" autocomplete="off" data-test="quantity-input"
-            class="quantity-stop item-quantity" value="6" style="width: 2rem;">
-    </div>
-    <div class="cartitemrow-itemprice">$60.00</div>
-</div>` 
+    <div class="cartitemrow-itemquantity">${itemdesc}</div>
+    <div class="cartitemrow-itemprice">$${itemprice}</div>
+` 
         $('#items').append(mystr);
     }
 
