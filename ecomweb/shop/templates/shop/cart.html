@@ -219,6 +219,7 @@ if ($.isEmptyObject(cart)) {
 
 }
 
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
 document.getElementById('total').innerHTML = '$' + total;
 // var totalsum = 0;
 // var len = Object.keys(cart).length;
