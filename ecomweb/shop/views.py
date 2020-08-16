@@ -1,8 +1,9 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Product
+from .models import Product, Customer
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as dj_login, logout
 from math import ceil
+from datetime import date
 from django.contrib.auth.models import User
 
 
@@ -111,8 +112,63 @@ def cart(request):
     params = {'allprods' : allprods}
     return render(request, 'shop/cart.html', params)
 
+
+
+import stripe
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
 def checkout(request):
+    if request.method == 'POST':
+        print('Data:', request.POST)
+        order_email = request.POST['customeremail']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        add1 = request.POST['add1']
+        add2 = request.POST['add2']
+        country = request.POST['country']
+        city = request.POST['city']
+        phoneno = request.POST['phone']
+        orderdate = date.today()
+        totalprice = request.POST['totalprice']
+        orderform = Customer(fname=name, lname=lname, address1=add1, address2= add2, email=order_email, country=country, city=city, phone=phoneno, totalprice=totalprice, order_date=orderdate)
+        orderform.save()
+
+        
+        customer = stripe.Customer.create(
+            email=email,
+            name=fname + ' ' + lname
+            )
+
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount=5000,
+            # (totalprice*100)
+            currency='usd',
+            description='Customer Purchase'
+            )
+
     return render(request, 'shop/checkout.html')
+
+# def ch(request):
+#     publishkey = settings.STRIPE_PUBLISHABLE_KEY
+#     if request.method == 'POST':
+#         token = request.POST['stripeToken']
+#         print (token)
+#         # # Create a charge: this will charge the user's card
+#         # try:
+#         #     charge = stripe.Charge.create(
+#         #         amount=1200,
+#         #         currency="usd",
+#         #         source=token,
+#         #         description="Example Charge"
+#         #     )
+#         # except strip.error.CardError as e:
+#         #     # The card has been declined
+#         #     message.info(request, "Your Card Has Been Declined")
+#     context = {'publishkey':publishkey}
+#     return render(request, 'shop/ch.html')
 
 def search(request):
     return HttpResponse('we are Search')
@@ -122,3 +178,4 @@ def tracker(request):
 
 def productview(request):
     return HttpResponse('we are Product View')
+    
