@@ -10,6 +10,7 @@ urlpatterns = [
     path("success/", views.success, name = "success"),
     path("cart/", views.cart, name = "Cart"),
     path("checkout/", views.checkout, name = "Checkout"),
+    # path("ch/", views.ch, name = "Ch"),
     path("search", views.search, name = "Search"),
     path("tracker/", views.tracker, name = "TrackingStatus"),
     path("products/", views.productview, name = "ProductView"),
