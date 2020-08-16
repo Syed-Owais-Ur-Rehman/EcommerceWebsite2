@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 class Product(models.Model):
@@ -16,12 +17,18 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
 
-# class Userid(models.Model):
-#     msg_id = models.AutoField(primary_key=True)
-#     name = models.CharField(max_length=50)
-#     email = models.CharField(max_length=70, default="")
-#     phone = models.CharField(max_length=70, default="")
-#     desc = models.CharField(max_length=500, default="")
+class Customer(models.Model):
+    customer_id = models.AutoField(primary_key=True)
+    fname = models.CharField(max_length=20)
+    lname = models.CharField(max_length=20)
+    address1 = models.CharField(max_length=70)
+    address2 = models.CharField(max_length=70)
+    customer_email = models.CharField(max_length=70, default="")
+    country = models.CharField(max_length=20)
+    city = models.CharField(max_length=20)
+    totalprice = models.FloatField(default=0)
+    phone = models.PositiveIntegerField()
+    order_date = models.DateField()
 
 
 #     def __str__(self):
