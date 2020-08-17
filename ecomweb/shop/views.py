@@ -37,9 +37,9 @@ def index(request):
     params = {'allprods' : allprods}
     return render(request, 'shop/index.html', params)
 
-def admin(request):
+def dashboard(request):
     messages.success(request, "You Have Logged In")
-    return render(request, 'shop/admin.html')
+    return render(request, 'shop/dashboard.html')
 
 def addform(request):
     if request.method=="POST":
@@ -120,36 +120,55 @@ from django.conf import settings
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 def checkout(request):
+    publishkey = settings.STRIPE_PUBLISHABLE_KEY
     if request.method == 'POST':
+        token = request.POST.get('stripeToken')
+        print (token)
         print('Data:', request.POST)
-        order_email = request.POST['customeremail']
-        fname = request.POST['fname']
-        lname = request.POST['lname']
-        add1 = request.POST['add1']
-        add2 = request.POST['add2']
-        country = request.POST['country']
-        city = request.POST['city']
-        phoneno = request.POST['phone']
+        order_email = request.POST.get('customeremail')
+        fname = request.POST.get('fname')
+        lname = request.POST.get('lname')
+        add1 = request.POST.get('add1')
+        add2 = request.POST.get('add2')
+        country = request.POST.get('country')
+        city = request.POST.get('city')
+        phoneno = request.POST.get('phone')
         orderdate = date.today()
-        totalprice = request.POST['totalprice']
-        orderform = Customer(fname=name, lname=lname, address1=add1, address2= add2, email=order_email, country=country, city=city, phone=phoneno, totalprice=totalprice, order_date=orderdate)
+        totalprice = request.POST.get('totalprice')
+        customer_amount = request.POST.get('amount')
+        orderform = Customer(fname=fname, lname=lname, address1=add1, address2= add2, customer_email=order_email, country=country, city=city, phone=phoneno, totalprice=totalprice, order_date=orderdate)
         orderform.save()
 
-        
-        customer = stripe.Customer.create(
-            email=email,
-            name=fname + ' ' + lname
-            )
-
-        charge = stripe.Charge.create(
-            customer=customer,
-            amount=5000,
-            # (totalprice*100)
-            currency='usd',
-            description='Customer Purchase'
-            )
-
-    return render(request, 'shop/checkout.html')
+        try:   
+            customer = stripe.Customer.create(
+                email=order_email,
+                name=fname + ' ' + lname,
+                balance=customer_amount
+                )
+            
+            payment = stripe.PaymentIntent.create(
+                customer=customer,
+                amount=customer_amount,
+                # (totalprice*100)
+                currency='usd',
+                payment_method_types=['card'],
+                payment_method='pm_card_visa',
+                source=token,
+                receipt_email= order_email,
+                description='Customer Purchase'
+                )
+            # charge = stripe.Charge.create(
+            #     customer=customer,
+            #     amount=customer_amount,
+            #     currency="usd",
+            #     source=token,
+            #     description="Example Charge"
+            # )
+        except stripe.error.CardError as e:
+        # The card has been declined
+         messages.info(request, "Your Card Has Been Declined")
+    context = {'publishkey':publishkey}
+    return render(request, 'shop/checkout.html',context)
 
 # def ch(request):
 #     publishkey = settings.STRIPE_PUBLISHABLE_KEY
