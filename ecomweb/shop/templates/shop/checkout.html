@@ -381,10 +381,14 @@
                 </div>
 
                 <div id="totalinput" style="display: none;">
+                    <span id="total" style="font-size: 18px; display: inline-block; text-align: center;"></span>
                 </div>
+
+                <!-- Stripe Script -->
+                <div class="wrapper">
+                <script src="https://js.stripe.com/v3/"></script>
                 
                 <form action="/shop/checkout/" method="POST" id="payment-form"> {% csrf_token %}
-
                     <div class="form-row">
                         <label for="card-element">
                             Credit or debit card
@@ -402,16 +406,17 @@
                                     style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
                             </div>
                         </div>
-                
+        
                         <!-- Used to display form errors. -->
                         <div id="card-errors" role="alert"></div>
                     </div>
-                
-                    <button>Submit Payment</button>
+        
+                    <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Submit Payment</button>
                 </form>
-                </div>
-                <div id="stripe-token-handler" class="is-hidden">Success! Got token: <span class="token"></span></div>
-                </form>
+            </div>
+            </div>
+            <div id="stripe-token-handler" class="is-hidden">Success! Got token: <span class="token"></span></div>
+            
             
 
                 <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapsePayment" role="button"
@@ -428,11 +433,10 @@
 
 {% endblock %}
 
+{% block script %}
 
-{% block js %}
-<script>
 
-    // Create a Stripe client.
+<script type="text/javascript" nonce="">  // Create a Stripe client.
     var stripe = Stripe('pk_test_51HGUX3J5EFDdtWwIeE7btARd4l2I6FcE8RZlMiuFj4adk4eEsaHN1LoBi28xPtBEpKY97Jf9EBjqyQWqtE7oC5NN00Ap20g0zN');
 
     // Create an instance of Elements.
@@ -461,6 +465,7 @@
 
     // Add an instance of the card Element into the `card-element` <div>.
     card.mount('#card-element');
+
     // Handle real-time validation errors from the card Element.
     card.on('change', function (event) {
         var displayError = document.getElementById('card-errors');
@@ -473,6 +478,7 @@
 
     // Handle form submission.
     var form = document.getElementById('payment-form');
+    if (form) {
     form.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -487,7 +493,7 @@
             }
         });
     });
-
+    }
     // Submit the form with the token ID.
     function stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
@@ -502,6 +508,22 @@
         form.submit();
     }
 
+    var successElement = document.getElementById('stripe-token-handler');
+    document.querySelector('.wrapper').addEventListener('click', function () {
+        successElement.className = 'is-hidden';
+    });
+
+    // Not in demo.
+    function stripeTokenHandler(token) {
+        successElement.className = '';
+        successElement.querySelector('.token').textContent = token.id;
+    }
+</script>
+{% endblock %}
+
+
+{% block js %}
+<script>
 
     if (localStorage.getItem('cart') == null) {
         var cart = {};
@@ -511,23 +533,21 @@
     console.log(cart);
     var sum = 0;
     var total = 0;
-    if ($.isEmptyObject(cart)) {
-        //if object is empty
-        break
-    } else {
-        for (item in cart) {
-            let itemstring = item;
-            let itemarray = itemstring.split(" % ")
-            let itemname = itemarray[0]
-            let itemprice = Math.round(itemarray[2] * 100) / 100;
-            total = total + itemprice;
-            // sum = sum + qty;
+    var amount = 0;
+    for (item in cart) {
+        let itemstring = item;
+        let itemarray = itemstring.split(" % ")
+        let itemname = itemarray[0]
+        let itemprice = Math.round(itemarray[2] * 100)/100;
+        let itemamount = Math.round(itemarray[2] * 100);
+        total = total + itemprice;
+        amount = amount + itemamount;
 
         }
-        mystr = `<input type="hidden" id="totalpriceid" name="totalprice" value="${total}">`
+        console.log(total)
+        mystr = `<input type="hidden" id="totalpriceid" name="totalprice" value="${total}">
+        <input type="hidden" id="amountid" name="amount" value="${amount}">`
         $('#totalinput').append(mystr);
-
-    }
 
     document.getElementById('cart').innerHTML = Object.keys(cart).length;
     document.getElementById('total').innerHTML = '$' + total;
