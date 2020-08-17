@@ -26,7 +26,7 @@ class Customer(models.Model):
     customer_email = models.CharField(max_length=70, default="")
     country = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
-    totalprice = models.FloatField(default=0)
+    totalprice = models.FloatField(null=True,default=0)
     phone = models.PositiveIntegerField()
     order_date = models.DateField()
 
