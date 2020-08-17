@@ -64,12 +64,17 @@ def login(request):
         user = authenticate(username=loginusername, password=loginpassword)
         if user is not None:
             dj_login(request, user)
-            return redirect("/shop/admin")
+            return redirect("/shop/dashboard")
         else:
             messages.error(request, "Invalid Credentials, Please Try Again")
             return redirect("/shop/login")
 
     return render(request, 'shop/login.html')
+
+def logout(request):
+    logout(request)
+    messages.success(request, "Successfully Logged Out")
+    return redirect("shop/index.html")
 
 def signup(request):
     if request.method=="POST":
