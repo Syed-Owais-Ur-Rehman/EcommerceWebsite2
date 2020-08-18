@@ -72,70 +72,45 @@
 {% if user.is_authenticated%}
 <header class="masthead dashboardpic">
     <div class="">
-        <div class="masthead-subheading" style=" text-shadow: 2px 2px black; line-height: inherit; font-size: 400%;">{{request.user}}Dashboard</div>
+        <div class="masthead-subheading" style=" text-shadow: 2px 2px black; line-height: inherit; font-size: 400%;">
+            {{request.user}}Dashboard</div>
+        <div class="masthead-heading text-uppercase" style="color:#212529;"></div>
+        <p id="userlogged" style="display: none;">{{request.user}}</p>
     </div>
 </header>
+{% endif %}
+
+<section class="page-section" id="services">
 <div class="container">
-    {% else %}
-    <div class="masthead-subheading" style=" text-shadow: 2px 2px black; line-height: inherit; font-size: 400%;">Dashboard</div>
-
-    {% endif %}
-
     <!--Slideshow starts here -->
-    {% for product, range, nslides in allprods %}
-    <h1 style="margin-top: 6rem !important;">{{product.0.category}}</h1>
-    <div class="row">
-        <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
-            <ul class="carousel-indicators">
-                <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+    <!-- <div class="text-center"> -->
+        <h2 class="section-heading text-uppercase" style="text-align: center !important;">My Products</h2>
+        <h3 class="section-subheading text-muted" style="text-align: center !important;">We are the best merchandise of Paintings in the town!</h3>
+    
+        {% for product, range, nslides in allprods %}
 
-                {% for i in range %}
-                <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}"></li>
-                {% endfor %}
-            </ul>
-
-
-            <div class="container carousel-inner no-padding">
-
-                <div class="carousel-item active">
-
-                    {% for i in product %}
-
-                    <div class="col-xs-3 col-sm-3 col-md-3">
-                        <div class="card align-items-center" style="width: 18rem; border: none; text-align: center;">
-                            <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{i.product_name}}</h5>
-                                <p class="card-text">$ {{i.price}}</p>
-                                <!-- {{i.desc|slice:"0:100"}}... -->
-                                <button
-                                    id="{{i.product_name}} % {{i.category}} % {{i.price}} % {{i.desc}} % {{i.image.url}}"
-                                    class="btn btn-primary cart">Add To Cart</button>
-                                <!-- <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
-                            </div>
-                        </div>
-                    </div>
-                    {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
-                </div>
-                <div class="carousel-item">
-                    {% endif %}
-                    {% endfor %}
-                </div>
-
-
-
+    {% for i in product %}
+    <div class="col-xs-3 col-sm-3 col-md-3" id="prodhide">
+        <div class="card align-items-center" style="width: 18rem; border: none; text-align: center;">
+            <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
+            <div class="card-body">
+                <p id="product_owner" style="display: none;">{{i.owner}}</p>
+                <p class="card-title"><b>Category:</b> {{i.category}}</p>
+                <p class="card-title"><b>Name:</b> {{i.product_name}}</p>
+                <p class="card-text"><b>Price:</b> $ {{i.price}}</p>
+                <!-- {{i.desc|slice:"0:100"}}... -->
+                <button 
+                    class="btn btn-primary cart">Edit</button>
+                <!-- <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
             </div>
         </div>
-        <!-- left and right controls for the slide -->
-        <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-            <span class="carousel-control-prev-icon" style="margin-right: -2.0%;" aria-hidden="true"></span>
-        </a>
-        <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-            <span class="carousel-control-next-icon" style="margin-right: -3.3%;" aria-hidden="true"></span>
-        </a>
     </div>
     {% endfor %}
 </div>
+{% endfor %}
+<!-- </div> -->
+</div>
+</section>
 
 {% endblock %}
 
@@ -164,6 +139,13 @@
         localStorage.setItem('cart', JSON.stringify(cart));
         document.getElementById('cart').innerHTML = Object.keys(cart).length;
     });
+
+    var userlogged = document.getElementById("userlogged").value;
+    var product_owner = document.getElementById("product_owner").value;
+
+    if (product_owner == userlogged) {
+        document.getElementById("prodhide").style.display = "none";
+    }
 
 </script>
 
