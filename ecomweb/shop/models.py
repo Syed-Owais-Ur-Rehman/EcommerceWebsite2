@@ -5,6 +5,7 @@ from django.db import models
 
 class Product(models.Model):
     product_id = models.AutoField
+    owner = models.CharField(max_length=50, default="")
     product_name = models.CharField(max_length=50)
     category = models.CharField(max_length=50, default="")
     email = models.CharField(max_length=70, default="")
