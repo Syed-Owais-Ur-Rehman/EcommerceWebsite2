@@ -38,20 +38,32 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 def dashboard(request):
+    allprods = []
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(category = cat)
+        n = len(prod)
+        nslides = n//4 + ceil((n/4)-(n//4))
+        allprods.append([prod, range(1, nslides), nslides])
+
+    params = {'allprods' : allprods}
     messages.success(request, "You Have Logged In")
-    return render(request, 'shop/dashboard.html')
+
+    return render(request, 'shop/dashboard.html',params)
 
 def addform(request):
     if request.method=="POST":
         print(request)
         name = request.POST.get('name', '')
+        owner = request.POST.get('loggedinuser')
         category = request.POST.get('category', '')
         email = request.POST.get('email', '')
         price = request.POST.get('price', '')
         desc = request.POST.get('desc', '')
         image = request.FILES['image']
         pub_date = request.POST.get('date', '')
-        addform = Product(product_name=name, email=email, price=price, desc=desc, image=image, category=category, pub_date=pub_date)
+        addform = Product(product_name=name, owner=owner, email=email, price=price, desc=desc, image=image, category=category, pub_date=pub_date)
         addform.save()
     return render(request, 'shop/addform.html')
 
@@ -101,8 +113,10 @@ def signup(request):
     return render(request, 'shop/signup.html') 
 
 def success(request):
+    context = {}
+    context['user'] = request.user
     messages.success(request, "Your Account Has Been Successfully Created")
-    return render(request, 'shop/success.html') 
+    return render(request, 'shop/success.html', context) 
 
 def cart(request):
     allprods = []
