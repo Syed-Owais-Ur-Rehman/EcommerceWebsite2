@@ -40,7 +40,6 @@
   <div class="signupwidth">
 
     <!-- <div class="masthead-heading text-uppercase" style="color: #ccc;;">Register Your Work and Make it Live</div> -->
-
     <form action="/shop/addform/" method="POST" enctype="multipart/form-data"
       style="border-radius: 8px; background: rgba(0,0,0,0.92);" class="contactForm">{% csrf_token %}
       <!--border:1px solid #ccc; -->
@@ -48,6 +47,8 @@
         <i class="fas fa-user-edit"
           style="color: #fff; width: 20%; height: auto; padding-bottom: inherit; display: inline-flex;"></i>
         <hr>
+
+        <input type="hidden" id="loggedinuser" name="loggedinuser" value="{{request.user}}">
 
         <div class="form-group">
           <label for="name" class="check-control" style="margin-bottom: 1rem; padding-top: 1rem;"><b>Full
