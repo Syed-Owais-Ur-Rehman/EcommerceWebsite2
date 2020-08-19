@@ -3,6 +3,52 @@
 {% block masthead %}
 
 <style>
+    #card-errors {
+        height: 20px;
+        padding: 4px 0;
+        color: #fa755a;
+    }
+
+    .form-row {
+        width: 70%;
+        float: left;
+    }
+
+    .token {
+        color: #32325d;
+        font-family: 'Source Code Pro', monospace;
+        font-weight: 500;
+    }
+
+    .wrapper {
+        width: 670px;
+        margin: 0 auto;
+        height: 100%;
+    }
+
+    #stripe-token-handler {
+        position: absolute;
+        top: 0;
+        left: 25%;
+        right: 25%;
+        padding: 20px 30px;
+        border-radius: 0 0 4px 4px;
+        box-sizing: border-box;
+        box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
+            0 15px 35px rgba(50, 50, 93, 0.15),
+            0 5px 15px rgba(0, 0, 0, 0.1);
+        -webkit-transition: all 500ms ease-in-out;
+        transition: all 500ms ease-in-out;
+        transform: translateY(0);
+        opacity: 1;
+        background-color: white;
+    }
+
+    #stripe-token-handler.is-hidden {
+        opacity: 0;
+        transform: translateY(-80px);
+    }
+
     /**
          * The CSS shown here will not be introduced in the Quickstart guide, but shows
          * how you can use CSS to style your Element's container.
@@ -51,35 +97,54 @@
         border-right-color: #fed136;
         border-left-color: #fed136
     }
+
+    .linktitle {
+        color: #fed136;
+    background-color: #212529;
+    border-color: #fed136;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    font-weight: bolder;
+    WIDTH: 90%;
+    font-size: 23px;
+    padding-top: 2%;
+    }
+
+
 </style>
 
 <header class="masthead mhdefault">
     <div class="signupwidth">
-        <div class="masthead-subheading" style="color:#212529; font-size: 3.0rem;">Checkout</div>
+        <h1 class="check-control" style="font-size: 3.0rem;">CHECKOUT</h1>
+        <!-- <div class="masthead-subheading" style="color:#212529; font-size: 3.0rem;">Checkout</div> -->
         <!-- <div class="masthead-heading text-uppercase" style="color:#212529;"></div> -->
         <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a> -->
-        <form action="/shop/checkout/" method="POST" style="border:1px solid #ccc; border-radius: 8px;"
+        <form action="/shop/checkout/" method="POST" style="border:none; border-radius: 8px;"
             class="contactForm">{% csrf_token %}
             <div class="container">
-                <h1 class="check-control" style="font-size: 2.0rem;">Make An Account</h1>
-                <p class="check-control">Draw Your Own Business</p>
-                <hr>
+                <!-- <h1 class="check-control" style="font-size: 2.0rem;">Make An Account</h1>
+                <p class="check-control">Draw Your Own Business</p> -->
+                <!-- <hr> -->
 
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseEmail" role="button"
+                <a class="btn btn-primary linktitle" id="email" data-toggle="collapse" href="#collapseEmail" role="button"
                     aria-expanded="false" aria-controls="collapseExample">
-                    Email
+                    1. Email
                 </a>
 
                 <div class="form-group collapse" id="collapseEmail">
-                    <label for="email" class="check-control"><b>Email</b></label>
+                    <!-- <label for="email" class="check-control"><b>Email</b></label> -->
                     <i class="fas fa-envelope" style="color: #fed136;"></i>
                     <input type="email" placeholder="Enter Email" class="form-control" name="customeremail"
                         style="width: 85%;" required>
+
+                    <button type="button" class="btn btn-primary" id="shipnext" onclick="shipNext()">NEXT</button>
+
                 </div>
 
-                <a class="btn btn-primary" data-toggle="collapse" href="#collapseShipping" role="button"
+                <a class="btn btn-primary linktitle" id="ship" data-toggle="collapse" href="#collapseShipping" role="button"
                     aria-expanded="false" aria-controls="collapseExample">
-                    Shipping
+                    2. Shipping
                 </a>
 
                 <div class="collapse" id="collapseShipping">
@@ -378,55 +443,64 @@
                         <input type="tel" id="phone" name="phone" class="form-control" maxlength="11"
                             placeholder="01234567890" name="phone" style="width: 85%;" required>
                     </div>
+
+                    <button type="button" class="btn btn-primary" id="paynext" onclick="payNext()">NEXT</button>
+
                 </div>
 
                 <div id="totalinput" style="display: none;">
                     <span id="total" style="font-size: 18px; display: inline-block; text-align: center;"></span>
                 </div>
 
-                <!-- Stripe Script -->
-                <div class="wrapper">
-                <script src="https://js.stripe.com/v3/"></script>
-                
-                <form action="/shop/checkout/" method="POST" id="payment-form"> {% csrf_token %}
-                    <div class="form-row">
-                        <label for="card-element">
-                            Credit or debit card
-                        </label>
-                        <div id="card-element" style="width: 100%;" class="StripeElement StripeElement--empty">
-                            <div class="__PrivateStripeElement"
-                                style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
-                                <iframe frameborder="0" allowtransparency="true" scrolling="no" name="__privateStripeFrame5"
-                                    allowpaymentrequest="true"
-                                    src="https://js.stripe.com/v3/elements-inner-card-7672104ad5df23afe0c499ff423501ae.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;apiKey=pk_test_51HGUX3J5EFDdtWwIeE7btARd4l2I6FcE8RZlMiuFj4adk4eEsaHN1LoBi28xPtBEpKY97Jf9EBjqyQWqtE7oC5NN00Ap20g0zN&amp;flags[0]=a&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1"
-                                    title="Secure card payment input frame"
-                                    style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; height: 19.2px;"></iframe><input
-                                    class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" " autocomplete="false"
-                                    maxlength="1"
-                                    style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
-                            </div>
-                        </div>
-        
-                        <!-- Used to display form errors. -->
-                        <div id="card-errors" role="alert"></div>
-                    </div>
-        
-                    <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Submit Payment</button>
-                </form>
-            </div>
-            </div>
-            <div id="stripe-token-handler" class="is-hidden">Success! Got token: <span class="token"></span></div>
-            
-            
-
-                <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapsePayment" role="button"
+                <a class="btn btn-primary linktitle" id="paym" data-toggle="collapse" href="#collapsePayment" role="button"
                     aria-expanded="false" aria-controls="collapseExample">
-                    Payment
+                    3. Payment
                 </a>
 
-                <div class="collapse" id="collapsePayment"> -->
-            </div>
+                <div class="collapse" id="collapsePayment">
+                <!-- Stripe Script -->
+                <div class="wrapper">
+                    <script src="https://js.stripe.com/v3/"></script>
 
+
+                    <form action="/shop/checkout/" method="POST" id="payment-form"> {% csrf_token %}
+                        <div class="form-row">
+                            <label for="card-element">
+                                Credit or debit card
+                            </label>
+                            <div id="card-element" style="width: 100%;" class="StripeElement StripeElement--empty">
+                                <div class="__PrivateStripeElement"
+                                    style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
+                                    <iframe frameborder="0" allowtransparency="true" scrolling="no"
+                                        name="__privateStripeFrame5" allowpaymentrequest="true"
+                                        src="https://js.stripe.com/v3/elements-inner-card-7672104ad5df23afe0c499ff423501ae.html#style[base][color]=%2332325d&amp;style[base][fontFamily]=%22Helvetica+Neue%22%2C+Helvetica%2C+sans-serif&amp;style[base][fontSmoothing]=antialiased&amp;style[base][fontSize]=16px&amp;style[base][::placeholder][color]=%23aab7c4&amp;style[invalid][color]=%23fa755a&amp;style[invalid][iconColor]=%23fa755a&amp;componentName=card&amp;wait=false&amp;rtl=false&amp;keyMode=test&amp;apiKey=pk_test_51HGUX3J5EFDdtWwIeE7btARd4l2I6FcE8RZlMiuFj4adk4eEsaHN1LoBi28xPtBEpKY97Jf9EBjqyQWqtE7oC5NN00Ap20g0zN&amp;flags[0]=a&amp;origin=https%3A%2F%2Fstripe.com&amp;referrer=https%3A%2F%2Fstripe.com%2Fdocs%2Fstripe-js&amp;controllerId=__privateStripeController1"
+                                        title="Secure card payment input frame"
+                                        style="border: none !important; margin: 0px !important; padding: 0px !important; width: 1px !important; min-width: 100% !important; overflow: hidden !important; display: block !important; user-select: none !important; height: 19.2px;"></iframe><input
+                                        class="__PrivateStripeElement-input" aria-hidden="true" aria-label=" "
+                                        autocomplete="false" maxlength="1"
+                                        style="border: none !important; display: block !important; position: absolute !important; height: 1px !important; top: 0px !important; left: 0px !important; padding: 0px !important; margin: 0px !important; width: 100% !important; opacity: 0 !important; background: transparent !important; pointer-events: none !important; font-size: 16px !important;">
+                                </div>
+                            </div>
+
+                            <!-- Used to display form errors. -->
+                            <div id="card-errors" role="alert"></div>
+                        </div>
+
+                        <button type="submit" id="paybtn" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Submit
+                            Payment</button>
+                    </form>
+                </div>
+            </div>
+            <div id="stripe-token-handler" class="is-hidden">Success! Got token: <span class="token"></span></div>
+
+
+
+            <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapsePayment" role="button"
+                    aria-expanded="false" aria-controls="collapseExample">
+                    Payment
+                </a> -->
+            <!-- <div class="collapse" id="collapsePayment"> -->
+            </div>
         </form>
     </div>
 </header>
@@ -479,20 +553,20 @@
     // Handle form submission.
     var form = document.getElementById('payment-form');
     if (form) {
-    form.addEventListener('submit', function (event) {
-        event.preventDefault();
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        stripe.createToken(card).then(function (result) {
-            if (result.error) {
-                // Inform the user if there was an error.
-                var errorElement = document.getElementById('card-errors');
-                errorElement.textContent = result.error.message;
-            } else {
-                // Send the token to your server.
-                stripeTokenHandler(result.token);
-            }
+            stripe.createToken(card).then(function (result) {
+                if (result.error) {
+                    // Inform the user if there was an error.
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server.
+                    stripeTokenHandler(result.token);
+                }
+            });
         });
-    });
     }
     // Submit the form with the token ID.
     function stripeTokenHandler(token) {
@@ -538,19 +612,40 @@
         let itemstring = item;
         let itemarray = itemstring.split(" % ")
         let itemname = itemarray[0]
-        let itemprice = Math.round(itemarray[2] * 100)/100;
+        let itemprice = Math.round(itemarray[2] * 100) / 100;
         let itemamount = Math.round(itemarray[2] * 100);
         total = total + itemprice;
         amount = amount + itemamount;
 
-        }
-        console.log(total)
-        mystr = `<input type="hidden" id="totalpriceid" name="totalprice" value="${total}">
+    }
+    console.log(total)
+    mystr = `<input type="hidden" id="totalpriceid" name="totalprice" value="${total}">
         <input type="hidden" id="amountid" name="amount" value="${amount}">`
-        $('#totalinput').append(mystr);
+    $('#totalinput').append(mystr);
 
     document.getElementById('cart').innerHTML = Object.keys(cart).length;
     document.getElementById('total').innerHTML = '$' + total;
+
+    document.getElementById('email').click()
+    document.getElementById('email').disabled = true;
+    document.getElementById('ship').disabled = true;
+    document.getElementById('paym').disabled = true;
+    
+
+
+    function shipNext() {
+        document.getElementById('ship').disabled = false;
+        document.getElementById('ship').click()
+        document.getElementById('ship').disabled = true;
+
+    }
+
+    function payNext() {
+        document.getElementById('paym').disabled = false;
+        document.getElementById('paym').click()
+        document.getElementById('paym').disabled = true;
+
+    }
 
 </script>
 {% endblock %}
