@@ -55,13 +55,13 @@
         justify-content: flex-start;
         padding: 20px 0;
         min-height: 70px;
-        border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+        border-bottom: 1px solid rgba(100, 100, 100, 0.4);
     }
 
     .cartitemrow-image {
         width: 100%;
         height: 0;
-        padding-bottom: 100%;
+        padding-bottom: 110%;
         background: no-repeat center center;
         background-size: contain;
     }
@@ -91,7 +91,7 @@
         justify-content: flex-start;
         padding: 20px 0;
         min-height: 70px;
-        border-bottom: 1px solid rgba(100, 100, 100, 0.1);
+        border-bottom: 1px solid rgba(100, 100, 100, 0.4);
     }
 
     .cartitemrow-remove {
@@ -119,31 +119,65 @@
         border: none;
         padding: 0;
     }
+    .itemtitle {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 21px;
+    }
+    .prodpagelink {
+        color: #fed136;
+        opacity: 0.80;
+        padding-left: 33%;
+        text-transform: capitalize;
+    }
+
+    .totalamount {
+        font-size: 30px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bolder;
+        padding-right: 6%;
+        padding-top: 1%;
+        opacity: 0.9;
+    }
+
+    .checkoutbtn {
+        text-align: right;
+        line-height: 1.5rem;
+        margin-right: 63px;
+        margin-top: 23px;
+        margin-bottom: 51px;
+    }
+    
+
 </style>
 
 
 
-<header class="masthead mhdefault">
+<header class="masthead mhdefault" style="padding-top: 3.5rem;">
     <div class="container check">
-        <div class="masthead-subheading" style="color:#212529;">Shopping Cart</div>
+        <div class="masthead-heading text-uppercase" style="color:#212529;">Shopping Cart</div>
+        <div class="masthead-subheading" style="color:#212529; padding-left: 3%;">Preview Your Items Before Checkout</div>
 </header>
 
 
 <div class="container">
     <div class="cartitemrow-itemtitle">
         <span class="itemlabels">
-            <span>ITEM</span>
+            <h2 class="section-heading text-uppercase" style="font-size: 200%;">ITEM</h2>
+            <!-- <span>ITEM</span> -->
         </span>
         <div class="checkoutitemimage"></div>
         <div class="checkoutitemdesc"></div>
         <div class="cartitemrow-itemquantity">
             <span class="itemlabels">
-                <span>CATEGORY</span>
+                <h2 class="section-heading text-uppercase" style="font-size: 200%;">CATEGORY</h2>
+                <!-- <span>CATEGORY</span> -->
             </span>
         </div>
         <div class="cartitemrow-itemprice">
             <span class="itemlabels">
-                <span>PRICE</span>
+                <h2 class="section-heading text-uppercase" style="font-size: 200%;">PRICE</h2>
+                <!-- <span>PRICE</span> -->
             </span>
         </div>
     </div>
@@ -155,13 +189,13 @@
 
     <div class="cart-subtotal">
         <span style="font-size: 16px; margin-right: 15px;">
-            <span>Subtotal</span>
+            <span><h2 class="section-heading text-uppercase" style="font-size: 200%; padding-right: 5%;">SUBTOTAL</h2></span>
         </span>
-        <span id="total" style="font-size: 18px; display: inline-block; text-align: center;"></span>
+        <span id="total" class="itemtitle totalamount"></span>
     </div>
 
-    <div style="text-align: right; line-height: 1.5rem; margin-right: -23px; margin-top: 23px; margin-bottom: 30px;">
-        <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Checkout</a>
+    <div class="checkoutbtn"">
+        <a href="{% url 'Checkout' %}" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Checkout</a>
     </div>
 </div>
 
@@ -198,19 +232,19 @@ if ($.isEmptyObject(cart)) {
 <div class="cartitemrow-itemlist">
     <div class="cartitemrow-remove">
         <button class="button-itemremove" title="Remove Item" aria-label="Remove Item" data-test="remove-item">
-            <span aria-hidden="true">×</span></button>
+            <span aria-hidden="true" style="opacity: 0.4;">×</span></button>
     </div>
     <div class="checkoutitemimage">
-        <div class="cartitemrow-image"><img src="${itemimage}" class="card-img-top" alt="..."></div>
+        <div class="cartitemrow-image"><img src="${itemimage}" style="width: 193%; height: 7rem;" class="card-img-top" alt="..."></div>
     </div>
     <div class="checkoutitemdesc">
         <div class="CartTableRow-itemTitle-1MDgZ">
-            <a href="https://hester-demo.squarespace.com/shop/lemons">${itemname}</a>
+            <a href="https://hester-demo.squarespace.com/shop/lemons" class="itemtitle prodpagelink"><b>${itemname}</b></a>
         </div>
         <div style="opacity: 0.5;"></div>
     </div>
-    <div class="cartitemrow-itemquantity">${itemcategory}</div>
-    <div class="cartitemrow-itemprice">$${itemprice}</div>
+    <div class="cartitemrow-itemquantity itemtitle"><b>${itemcategory}</b></div>
+    <div class="cartitemrow-itemprice itemtitle"><b>$${itemprice}</b></div>
 </div>
 ` 
         $('#items').append(mystr);
