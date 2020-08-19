@@ -66,6 +66,7 @@ def addform(request):
     return render(request, 'shop/addform.html')
 
 def login(request):
+    context = {}
     if request.method=="POST":
         # Get the post parameters
         loginusername = request.POST['username']
@@ -74,12 +75,13 @@ def login(request):
         user = authenticate(username=loginusername, password=loginpassword)
         if user is not None:
             dj_login(request, user)
+            context['user'] = request.user
             return redirect("/shop/dashboard")
         else:
             messages.error(request, "Invalid Credentials, Please Try Again")
             return redirect("/shop/login")
 
-    return render(request, 'shop/login.html')
+    return render(request, 'shop/login.html',context)
 
 def logout(request):
     logout(request)
