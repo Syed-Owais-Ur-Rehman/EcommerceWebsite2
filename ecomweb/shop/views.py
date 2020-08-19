@@ -38,21 +38,15 @@ def index(request):
     return render(request, 'shop/index.html', params)
 
 def dashboard(request):
-    userprod = []
-    for i in Product.objects.all():
-        if i.owner == request.user:
-            userprod.append(i.product_id)
     allprods = []
-    catprods = Product.objects.values('category', 'id')
-    cats = {item['category'] for item in catprods}
+    catprods = Product.objects.values('owner', 'id')
+    cats = {item['owner'] for item in catprods}
     for cat in cats:
-        prod = Product.objects.filter(category = cat)
+        prod = Product.objects.filter(owner = cat)
         n = len(prod)
         nslides = n//4 + ceil((n/4)-(n//4))
         allprods.append([prod, range(1, nslides), nslides])
 
-    params = {'allprods' : allprods, 'userprod' : userprod}
-    messages.success(request, "You Have Logged In")
     params = {'allprods' : allprods}
     return render(request, 'shop/dashboard.html',params)
 
