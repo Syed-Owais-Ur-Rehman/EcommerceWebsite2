@@ -45,6 +45,35 @@
     padding-left: 0;
     padding-right: 0;
   }
+
+  .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 6.5%;
+        right: 0;
+        height: 65.5%;
+        width: 87%;
+        opacity: 0;
+        transition: .3s ease;
+        border-radius: 10%;
+        background: #212529;
+    }
+
+    .imghover:hover .overlay {
+        opacity: 0.9;
+    }
+
+    .overlaybutton {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+
 </style>
 
 <div class="container">
@@ -68,9 +97,12 @@
         <div class="carousel-item active">
 
           {% for i in product %}
-          <div class="col-xs-3 col-sm-3 col-md-3">
+          <div class="col-xs-3 col-sm-3 col-md-3 imghover">
             <div class="card align-items-center" style="width: 18rem; border: none; text-align: center;">
               <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
+              <div class="overlay">
+                <button class="btn btn-primary cart overlaybutton">Edit Product</button>
+            </div>
               <div class="card-body">
                 <h5 class="card-title">{{i.product_name}}</h5>
                 <p class="card-text">$ {{i.price}}</p>
