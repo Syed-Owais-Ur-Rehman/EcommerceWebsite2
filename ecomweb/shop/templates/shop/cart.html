@@ -135,7 +135,7 @@
         display: inline-block;
         text-align: center;
         font-weight: bolder;
-        padding-right: 6%;
+        padding-right: 9%;
         padding-top: 1%;
         opacity: 0.9;
     }
@@ -143,7 +143,7 @@
     .checkoutbtn {
         text-align: right;
         line-height: 1.5rem;
-        margin-right: 63px;
+        margin-right: 7%;
         margin-top: 23px;
         margin-bottom: 51px;
     }
@@ -170,12 +170,12 @@
         <div class="checkoutitemdesc"></div>
         <div class="cartitemrow-itemquantity">
             <span class="itemlabels">
-                <h2 class="section-heading text-uppercase" style="font-size: 200%;">CATEGORY</h2>
+                <h2 class="section-heading text-uppercase" style="font-size: 200%; padding-left: 12%;">CATEGORY</h2>
                 <!-- <span>CATEGORY</span> -->
             </span>
         </div>
         <div class="cartitemrow-itemprice">
-            <span class="itemlabels">
+            <span class="itemlabels" style="margin-right: 13%;">
                 <h2 class="section-heading text-uppercase" style="font-size: 200%;">PRICE</h2>
                 <!-- <span>PRICE</span> -->
             </span>
@@ -189,7 +189,7 @@
 
     <div class="cart-subtotal">
         <span style="font-size: 16px; margin-right: 15px;">
-            <span><h2 class="section-heading text-uppercase" style="font-size: 200%; padding-right: 5%;">SUBTOTAL</h2></span>
+            <span><h2 class="section-heading text-uppercase" style="font-size: 200%; padding-right: 8%;">SUBTOTAL</h2></span>
         </span>
         <span id="total" class="itemtitle totalamount"></span>
     </div>
@@ -244,7 +244,7 @@ if ($.isEmptyObject(cart)) {
         <div style="opacity: 0.5;"></div>
     </div>
     <div class="cartitemrow-itemquantity itemtitle"><b>${itemcategory}</b></div>
-    <div class="cartitemrow-itemprice itemtitle"><b>$${itemprice}</b></div>
+    <div class="cartitemrow-itemprice itemtitle" style="padding-right: 4.4%;"><b>$${itemprice}</b></div>
 </div>
 ` 
         $('#items').append(mystr);
