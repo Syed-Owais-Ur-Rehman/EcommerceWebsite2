@@ -47,40 +47,45 @@
   }
 
   .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 6.5%;
-        right: 0;
-        height: 65.5%;
-        width: 87%;
-        opacity: 0;
-        transition: .3s ease;
-        border-radius: 10%;
-        background: #212529;
-    }
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 6.5%;
+    right: 0;
+    height: 65.5%;
+    width: 87%;
+    opacity: 0;
+    transition: .3s ease;
+    border-radius: 10%;
+    background: #212529;
+  }
 
-    .imghover:hover .overlay {
-        opacity: 0.9;
-    }
+  .imghover:hover .overlay {
+    opacity: 0.9;
+  }
 
-    .overlaybutton {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        text-align: center;
-    }
-
-
+  .overlaybutton {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
 </style>
+<header class="masthead" style="margin-top: 15%;">
+  <div>
+    <h2 class="section-heading text-uppercase" style="text-align: center !important; font-size: 45px;">Welcome to our Shop</h2>
+    <h3 class="section-subheading text-muted" style="margin-top: 2%; text-align: center !important; font-size: 1.4rem; font-weight: 400; font-style: italic;">Grab your art and make your
+      purchase</h3>
+  </div>
+</header>
 
 <div class="container">
-
   <!--Slideshow starts here -->
   {% for product, range, nslides in allprods %}
-  <h1 style="margin-top: 6rem !important;">{{product.0.category}}</h1>
+  <h2 class="section-heading text-uppercase" style="margin-top: 7%; margin-bottom: 4%; text-align: center !important; font-size: 30px;">{{product.0.category}}</h2>
+  <hr>
   <div class="row">
     <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
       <ul class="carousel-indicators">
@@ -102,12 +107,13 @@
               <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
               <div class="overlay">
                 <button class="btn btn-primary cart overlaybutton">Edit Product</button>
-            </div>
+              </div>
               <div class="card-body">
                 <h5 class="card-title">{{i.product_name}}</h5>
                 <p class="card-text">$ {{i.price}}</p>
                 <!-- {{i.desc|slice:"0:100"}}... -->
-                <button id="{{i.product_name}} % {{i.category}} % {{i.price}} % {{i.desc}} % {{i.image.url}}" class="btn btn-primary cart">Add To Cart</button>
+                <button id="{{i.product_name}} % {{i.category}} % {{i.price}} % {{i.desc}} % {{i.image.url}}"
+                  class="btn btn-primary cart">Add To Cart</button>
                 <!-- <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
               </div>
             </div>
@@ -126,10 +132,10 @@
     </div>
     <!-- left and right controls for the slide -->
     <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
-      <span class="carousel-control-prev-icon" style="margin-right: -2.0%;" aria-hidden="true"></span>
+      <span class="carousel-control-prev-icon" style="margin-right: 10%; margin-top: -40%;" aria-hidden="true"></span>
     </a>
     <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
-      <span class="carousel-control-next-icon" style="margin-right: -3.3%;" aria-hidden="true"></span>
+      <span class="carousel-control-next-icon" style="margin-right: 50%; margin-top: -40%;" aria-hidden="true"></span>
     </a>
   </div>
   {% endfor %}
