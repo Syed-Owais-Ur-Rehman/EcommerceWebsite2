@@ -100,24 +100,37 @@
 
     .linktitle {
         color: #fed136;
-    background-color: #212529;
-    border-color: #fed136;
-    border-top: transparent;
-    border-right: transparent;
-    border-left: transparent;
-    font-weight: bolder;
-    WIDTH: 90%;
-    font-size: 23px;
-    padding-top: 2%;
+        background-color: #212529;
+        border-color: #fed136;
+        border-top: transparent;
+        border-right: transparent;
+        border-left: transparent;
+        font-weight: bolder;
+        WIDTH: 90%;
+        font-size: 23px;
+        padding-top: 2%;
     }
 
+    .checkoutbtn {
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 1.125rem;
+        color: #212529; 
+        margin-top: 4%; 
+        font-weight: bolder;
+    }
 
+    .dccard {
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-weight: bolder;
+        padding-bottom: 2%;
+        font-size: 21px;
+    }
 </style>
 
 <header class="masthead mhdefault">
     <div class="signupwidth">
         <h1 class="check-control" style="font-size: 3.0rem;">CHECKOUT</h1>
-        <!-- <div class="masthead-subheading" style="color:#212529; font-size: 3.0rem;">Checkout</div> -->
+        <div class="masthead-subheading" style="color:#212529; font-size: 1.5rem;">You Are One Step Away From Your Purchase</div>
         <!-- <div class="masthead-heading text-uppercase" style="color:#212529;"></div> -->
         <!-- <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a> -->
         <form action="/shop/checkout/" method="POST" style="border:none; border-radius: 8px;"
@@ -132,15 +145,17 @@
                     1. Email
                 </a>
 
-                <div class="form-group collapse" id="collapseEmail">
+                <div class="form-group collapse" id="collapseEmail" style="margin-top: 6%;">
                     <!-- <label for="email" class="check-control"><b>Email</b></label> -->
                     <i class="fas fa-envelope" style="color: #fed136;"></i>
                     <input type="email" placeholder="Enter Email" class="form-control" name="customeremail"
                         style="width: 85%;" required>
 
-                    <button type="button" class="btn btn-primary" id="shipnext" onclick="shipNext()">NEXT</button>
+                    <button type="button" class="btn btn-primary checkoutbtn" id="shipnext" onclick="shipNext()">NEXT</button>
 
                 </div>
+
+                <hr>
 
                 <a class="btn btn-primary linktitle" id="ship" data-toggle="collapse" href="#collapseShipping" role="button"
                     aria-expanded="false" aria-controls="collapseExample">
@@ -157,28 +172,26 @@
 
                     <div class="form-group">
                         <label for="lname" class="check-control"><b>Last Name</b></label>
-                        <i class="fas fa-user-tie" style="color: #fed136;"></i>
                         <input type="text" placeholder="Enter Last Name" class="form-control" name="lname"
                             style="width: 85%;" required>
                     </div>
 
                     <div class="form-group">
                         <label for="Address1" class="check-control"><b>Address 1</b></label>
-                        <i class="fas fa-user-tie" style="color: #fed136;"></i>
+                        <i class="fas fa-house-user" style="color: #fed136;"></i>
                         <input type="text" placeholder="Enter 1st Address" class="form-control" name="add1"
                             style="width: 85%;" required>
                     </div>
 
                     <div class="form-group">
                         <label for="Addess2" class="check-control"><b>Address 2</b></label>
-                        <i class="fas fa-user-tie" style="color: #fed136;"></i>
                         <input type="text" placeholder="Enter 2nd Address" class="form-control" name="add2"
                             style="width: 85%;">
                     </div>
 
                     <div class="form-group">
-                        <label for="country" class="check-control"><b>country</b></label>
-                        <i class="fas fa-key" style="color: #fed136;"></i>
+                        <label for="country" class="check-control"><b>Country</b></label>
+                        <i class="fas fa-globe-americas" style="color: #fed136;"></i>
                         <select class="form-control regform" name="country" id="exampleSelectCategory"
                             style="width: 85%; color:#212529; background: transparent;" placeholder="Select Country"
                             data-test="country" required="required">
@@ -432,21 +445,23 @@
 
                     <div class="form-group">
                         <label for="City" class="check-control"><b>City</b></label>
-                        <i class="fas fa-user" style="color: #fed136;"></i>
+                        <i class="fas fa-city" style="color: #fed136;"></i>
                         <input type="text" placeholder="Enter City" class="form-control" name="city" style="width: 85%;"
                             required>
                     </div>
 
                     <div class="form-group">
                         <label for="Phone Number" class="check-control"><b>Phone Number</b></label>
-                        <i class="fas fa-user" style="color: #fed136;"></i>
+                        <i class="fas fa-mobile-alt" style="color: #fed136;"></i>
                         <input type="tel" id="phone" name="phone" class="form-control" maxlength="11"
                             placeholder="01234567890" name="phone" style="width: 85%;" required>
                     </div>
 
-                    <button type="button" class="btn btn-primary" id="paynext" onclick="payNext()">NEXT</button>
+                    <button type="button" class="btn btn-primary checkoutbtn" id="paynext" onclick="payNext()">NEXT</button>
 
                 </div>
+
+                <hr>
 
                 <div id="totalinput" style="display: none;">
                     <span id="total" style="font-size: 18px; display: inline-block; text-align: center;"></span>
@@ -462,13 +477,13 @@
                 <div class="wrapper">
                     <script src="https://js.stripe.com/v3/"></script>
 
-
+                    
                     <form action="/shop/checkout/" method="POST" id="payment-form"> {% csrf_token %}
-                        <div class="form-row">
-                            <label for="card-element">
-                                Credit or debit card
+                        <div class="form-row" style="width: 89%; margin-left: 6%;">
+                            <label for="card-element" class="dccard">
+                                <i class="fab fa-cc-stripe" style="color: #5469d4; width: 2rem;"></i> Credit or debit card
                             </label>
-                            <div id="card-element" style="width: 100%;" class="StripeElement StripeElement--empty">
+                            <div id="card-element" style="width: 100%; border-color: rgba(84, 105, 212,0.2);" class="StripeElement StripeElement--empty">
                                 <div class="__PrivateStripeElement"
                                     style="margin: 0px !important; padding: 0px !important; border: none !important; display: block !important; background: transparent !important; position: relative !important; opacity: 1 !important;">
                                     <iframe frameborder="0" allowtransparency="true" scrolling="no"
@@ -486,7 +501,7 @@
                             <div id="card-errors" role="alert"></div>
                         </div>
 
-                        <button type="submit" id="paybtn" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Submit
+                        <button type="submit" href="{% url 'Success' %}" id="paybtn" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger checkoutbtn">Submit
                             Payment</button>
                     </form>
                 </div>
@@ -501,6 +516,7 @@
                 </a> -->
             <!-- <div class="collapse" id="collapsePayment"> -->
             </div>
+            <hr>
         </form>
     </div>
 </header>
@@ -637,6 +653,8 @@
         document.getElementById('ship').disabled = false;
         document.getElementById('ship').click()
         document.getElementById('ship').disabled = true;
+        document.getElementById('shipnext').hidden = true;
+
 
     }
 
@@ -644,6 +662,8 @@
         document.getElementById('paym').disabled = false;
         document.getElementById('paym').click()
         document.getElementById('paym').disabled = true;
+        document.getElementById('paynext').hidden = true;
+
 
     }
 
