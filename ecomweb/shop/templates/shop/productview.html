@@ -1,6 +1,108 @@
 {% extends 'shop/basic1.html' %}
 
+
+{% block title %}<title>Product View</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a href="{% url 'ShopHome' %}" class="nav-link js-scroll-trigger navcol">Shop</a>
+
+<li class="nav-item"><a href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
+</li>
+<li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+{% endblock %}
+
+
 {% block masthead %}
 
+<style>
+
+
+.btn-home {
+            color: #fed136;
+            background-color: #212529;
+            border-color: #fed136;
+        }
+
+        .btn-home:hover {
+            color: #fed136;
+            background-color: #26282b;
+            border-color: #fec503;
+        }
+
+        .btn-home:focus,
+        .btn-home.focus {
+            color: #fed136;
+            background-color: black;
+            border-color: #fec503;
+            box-shadow: 0 0 0 0.2rem rgba(254, 216, 84, 0.5);
+        }
+
+        .font {
+            font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            text-align: justify;
+        }
+
+
+</style>
+
+<header class="masthead" style="margin-top: 12%;">
+<div class="container my-4">
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+        <img src="/media/{{product.image}}" style="width: 90%; height: 380px;">
+    </div>
+
+    </div>
+
+    <div class="col-md-8 font">
+        <h2>{{product.product_name}}</h2>
+        <p style="color: green;">Rs.{{product.price}}</p>
+        <p>{{product.desc}}</p>
+
+        <button id="{{product.product_name}} % {{product.category}} % {{product.price}} % {{product.desc}} % {{product.image.url}}" class="btn btn-home btn-xl text-uppercase js-scroll-trigger cart" style=" margin-top: 10%; margin-left: 34%;">Add To Cart</a>
+
+
+
+    </div>
+    </div>
+
+
+</div>
+</header>
+
+
+{% endblock %}
+
+
+
+{% block js %}
+
+<script>
+  console.log('working');
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  }
+  else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  }
+  $('.cart').click(function () {
+    console.log('clicked');
+    var idstr = this.id.toString();
+    console.log(idstr);
+    if (cart[idstr] != undefined) {
+      cart[idstr] = 1;
+    }
+    else {
+      cart[idstr] = 1;
+    }
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  });
+
+</script>
 
 {% endblock %}
