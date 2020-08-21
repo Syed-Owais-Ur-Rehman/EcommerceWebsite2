@@ -4,9 +4,16 @@
 
 
 {% block navlist %}
+{% if user.is_authenticated%}
+<li class="nav-item"><a href="{% url 'Dashboard' %}" class="nav-link js-scroll-trigger navcol" style="color: #fed136; font-weight: bolder;">Welcome
+        {{request.user}}</a>
+</li>
+{% else %}
 <li class="nav-item"><a  href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
 </li>
 <li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+
+{% endif %}
 <a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
     style="margin-left: 5px; margin-right: -326px; margin-top: -16px; width: 26%;"><i class="fab fa-opencart nav-item"
     style="width: 110%; height: 50px; margin-top: -11%; margin-bottom: -20%; margin-right: -79.5%;"></i>
@@ -76,5 +83,36 @@
     
 
 </header>
+
+{% endblock %}
+
+
+{% block js %}
+
+<script>
+  console.log('working');
+  if (localStorage.getItem('cart') == null) {
+    var cart = {};
+  }
+  else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  }
+  $('.cart').click(function () {
+    console.log('clicked');
+    var idstr = this.id.toString();
+    console.log(idstr);
+    if (cart[idstr] != undefined) {
+      cart[idstr] = 1;
+    }
+    else {
+      cart[idstr] = 1;
+    }
+    console.log(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+  });
+
+</script>
 
 {% endblock %}
