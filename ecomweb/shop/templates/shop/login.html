@@ -1,27 +1,44 @@
 {% extends 'shop/basic2.html' %}
 {% load static %}
+
+{% block title %}<title>Login</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a href="{% url 'ShopHome' %}" class="nav-link js-scroll-trigger navcol">Shop</a></li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger navcol" style="color: #fed136; font-weight: bolder;">Login</a>
+</li>
+<li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+<a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
+    style="margin-left: 5px; margin-right: -326px; margin-top: -8px; width: 20%;"><i class="fab fa-opencart nav-item"
+        style="width: 100%; height: 40px; margin-top: -11%; margin-bottom: -15%; margin-right: -73.5%;"></i>
+    </li><span id="cart">0</span></a>
+{% endblock %}
+
+
 {% block masthead %}
 
 <style>
     body.bodypic {
-    padding-top: 10.5rem;
-    padding-bottom: 6rem;
-    text-align: center;
-    color: #fff;
-    background-image: url("{% static 'shop/pics/hh35.jpg' %}");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
-    background-size: cover;
-  }
+        padding-top: 10.5rem;
+        padding-bottom: 6rem;
+        text-align: center;
+        color: #fff;
+        background-image: url("{% static 'shop/pics/hh35.jpg' %}");
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+    }
 </style>
 
 {% for message in messages %}
-<div class="alert alert-danger" style="margin-top: initial; margin-right: 25%; margin-left: 25%; border-radius: 16px;"role="alert">
+<div class="alert alert-danger" style="margin-top: initial; margin-right: 25%; margin-left: 25%; border-radius: 16px;"
+    role="alert">
     <h4 class="alert-heading" style="text-transform: uppercase;">{{ message.tags }}!</h4>
     <p>{{ message }}</p>
     <hr>
-  </div>
+</div>
 {% endfor %}
 
 <header class="masthead loginpic">
@@ -32,25 +49,28 @@
             <!-- <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
             <!-- <div class="masthead-heading text-uppercase">Sign In</div> -->
             <div class="form-group">
-            <!-- <label for="inputEmail" class="sr-only">Email Address</label> -->
-            <i class="fas fa-user" style="color: #fed136;"></i>
-            <input type="text" name="username" id="username" class="form-control" style="color: #fed136;" placeholder="Username" required autofocus>
+                <!-- <label for="inputEmail" class="sr-only">Email Address</label> -->
+                <i class="fas fa-user" style="color: #fed136;"></i>
+                <input type="text" name="username" id="username" class="form-control" style="color: #fed136;"
+                    placeholder="Username" required autofocus>
             </div>
-            
+
             <div class="form-group">
-            <!-- <label for="inputPassword" class="sr-only">Password</label> -->
-            <i class="fas fa-key" style="color: #fed136;"></i>
-            <input type="password" name="password" id="password" class="form-control" style="color: #fed136;" placeholder="Password" required>
+                <!-- <label for="inputPassword" class="sr-only">Password</label> -->
+                <i class="fas fa-key" style="color: #fed136;"></i>
+                <input type="password" name="password" id="password" class="form-control" style="color: #fed136;"
+                    placeholder="Password" required>
             </div>
-            
+
             <div class="form-group">
                 <div class="checkbox mb-3">
-                <label class="check-control">
-                    <input type="checkbox" value="remember-me"> Remember me
-                </label>
+                    <label class="check-control">
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
                 </div>
             </div>
-             <button type="submit" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Login</button>{% csrf_token %}
+            <button type="submit"
+                class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Login</button>{% csrf_token %}
             <p class="mt-5 mb-3 text-muted check-control">&copy; 2020-2021</p>
         </form>
     </div>
