@@ -1,5 +1,16 @@
 {% extends 'shop/basic1.html' %}
 {% load static %}
+
+{% block title %}<title>Articom Shop</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a class="nav-link js-scroll-trigger navcol"  style="color: brown; font-weight: bolder;">Shop</a></li>
+<li class="nav-item"><a href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
+</li>
+<li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+{% endblock %}
+
 {% block masthead %}
 
 <style>
@@ -72,11 +83,21 @@
     -ms-transform: translate(-50%, -50%);
     text-align: center;
   }
+
+
+  #font {
+    font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+
+
 </style>
 <header class="masthead" style="margin-top: 15%;">
   <div>
-    <h2 class="section-heading text-uppercase" style="text-align: center !important; font-size: 45px;">Welcome to our Shop</h2>
-    <h3 class="section-subheading text-muted" style="margin-top: 2%; text-align: center !important; font-size: 1.4rem; font-weight: 400; font-style: italic;">Grab your art and make your
+    <h2 class="section-heading text-uppercase" style="text-align: center !important; font-size: 45px;">Welcome to our
+      Shop</h2>
+    <h3 class="section-subheading text-muted"
+      style="margin-top: 2%; text-align: center !important; font-size: 1.4rem; font-weight: 400; font-style: italic;">
+      Grab your art and make your
       purchase</h3>
   </div>
 </header>
@@ -84,7 +105,9 @@
 <div class="container">
   <!--Slideshow starts here -->
   {% for product, range, nslides in allprods %}
-  <h2 class="section-heading text-uppercase" style="margin-top: 7%; margin-bottom: 4%; text-align: center !important; font-size: 30px;">{{product.0.category}}</h2>
+  <h2 class="section-heading text-uppercase"
+    style="margin-top: 7%; margin-bottom: 4%; text-align: center !important; font-size: 30px;">{{product.0.category}}
+  </h2>
   <hr>
   <div class="row">
     <div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
@@ -103,14 +126,14 @@
 
           {% for i in product %}
           <div class="col-xs-3 col-sm-3 col-md-3 imghover">
-            <div class="card align-items-center" style="width: 18rem; border: none; text-align: center;">
+            <div class="card align-items-center" id="font" style="width: 18rem; border: none; text-align: center;">
               <img src="{{i.image.url}}" style="border-radius: 27px;" class="card-img-top" alt="...">
               <div class="overlay">
-                <button class="btn btn-primary cart overlaybutton">Edit Product</button>
+                <a href="/shop/productview/{{i.id}}"><button class="btn btn-primary overlaybutton">View Product</button></a>
               </div>
               <div class="card-body">
                 <h5 class="card-title">{{i.product_name}}</h5>
-                <p class="card-text">$ {{i.price}}</p>
+                <p class="card-text" style="color: green;">$ {{i.price}}</p>
                 <!-- {{i.desc|slice:"0:100"}}... -->
                 <button id="{{i.product_name}} % {{i.category}} % {{i.price}} % {{i.desc}} % {{i.image.url}}"
                   class="btn btn-primary cart">Add To Cart</button>
