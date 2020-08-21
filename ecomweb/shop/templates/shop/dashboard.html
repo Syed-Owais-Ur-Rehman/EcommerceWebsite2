@@ -1,5 +1,25 @@
 {% extends 'shop/basic2.html' %}
 {% load static %}
+
+
+
+{% block title %}<title>Articom Dashboard</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a href="{% url 'ShopHome' %}" class="nav-link js-scroll-trigger navcol">Shop</a></li>
+{% if user.is_authenticated%}
+<li class="nav-item"><a class="nav-link js-scroll-trigger navcol" style="color: #fed136; font-weight: bolder;">Welcome
+        {{request.user}}</a>
+</li>
+{% endif %}
+<a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
+    style="margin-left: 5px; margin-right: -326px; margin-top: -8px; width: 20%;"><i class="fab fa-opencart nav-item"
+        style="width: 149%; height: 58px; margin-top: -40%; margin-bottom: -32%; margin-right: -105.5%;"></i>
+    </li><span id="cart">0</span></a>
+{% endblock %}
+
+
 {% block masthead %}
 
 <style>
@@ -8,7 +28,7 @@
         padding-bottom: 6rem;
         text-align: center;
         color: #fff;
-        background-image: url("{% static 'shop/pics/h48.jpg' %}");
+        background-image: url("{% static 'shop/pics/h46.jpg' %}");
         background-repeat: no-repeat;
         background-attachment: scroll;
         background-position: center center;
@@ -85,6 +105,29 @@
         text-align: center;
     }
 
+    .btn-home {
+        color: #fed136;
+        background-color: #212529;
+        border-color: #fed136;
+    }
+
+    .btn-home:hover {
+        color: #fed136;
+        background-color: #26282b;
+        border-color: #fec503;
+    }
+
+    .btn-home:focus,
+    .btn-home.focus {
+        color: #fed136;
+        background-color: black;
+        border-color: #fec503;
+        box-shadow: 0 0 0 0.2rem rgba(254, 216, 84, 0.5);
+    }
+
+    #font {
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    }
 
 </style>
 
@@ -101,8 +144,9 @@
 {% if user.is_authenticated%}
 <header class="masthead dashboardpic">
     <div>
-        <div class="masthead-subheading" style=" text-shadow: 2px 2px black; line-height: inherit; font-size: 400%;">
-            {{request.user}}Dashboard</div>
+        <div class="masthead-heading text-uppercase"
+            style="color: gold; text-shadow: 2px 2px 18px black; line-height: inherit; font-size: 500%;">
+            My Dashboard</div>
         <div class="masthead-heading text-uppercase" style="color:#212529;"></div>
         <p id="userlogged" style="display: none;">{{request.user}}</p>
     </div>
@@ -113,6 +157,8 @@
     <div class="container">
         <!--Slideshow starts here -->
         <!-- <div class="text-center"> -->
+        <a href="{% url 'Logout' %}"><button class="btn btn-home btn-xl text-uppercase js-scroll-trigger"
+                style=" margin-top: -11%; margin-left: 93%;">Logout</button></a>
         <h2 class="section-heading text-uppercase" style="text-align: center !important;">My Products</h2>
         <h3 class="section-subheading text-muted" style="text-align: center !important;">We are the best merchandise of
             Paintings in the town!</h3>
@@ -137,19 +183,24 @@
 
                         {% for i in product %}
                         <div class="col-xs-3 col-sm-3 col-md-3 imghover" style="width: 150%;">
-                            <div class="card align-items-center"
+                            <div class="card align-items-center" id="font"
                                 style="width: 18rem; border: none; text-align: center;">
 
-                                <img src="{{i.image.url}}" style="border-radius: 27px; height: 282px;" class="card-img-top"
-                                    alt="...">
+                                <img src="{{i.image.url}}" style="border-radius: 27px; height: 282px;"
+                                    class="card-img-top" alt="...">
                                 <div class="overlay">
-                                    <button class="btn btn-primary cart overlaybutton">Edit Product</button>
+                                    <a href="/shop/productview/{{i.id}}"><button class="btn btn-primary overlaybutton">View Product</button></a>
+                                    <button id="delbtn" class="btn btn-danger" onclick="sure()">DELETE</button>
+                                    <!-- <p id="sure">Are You Sure</p>
+                                    <button id="delyes" class="btn btn-success" onclick="yesdel()">Yes</button>
+                                    <button id="delne" class="btn btn-danger" onclick="nodel()">No</button> -->
+
                                 </div>
                                 <div class="card-body">
                                     <p id="product_owner" style="display: none;">{{i.owner}}</p>
                                     <p class="card-title"><b>Category:</b> {{i.category}}</p>
                                     <p class="card-title"><b>Name:</b> {{i.product_name}}</p>
-                                    <p class="card-text"><b>Price:</b> $ {{i.price}}</p>
+                                    <p class="card-text"><b>Price:</b><span style="color: green;"> $ {{i.price}}</span></p>
                                     <!-- {{i.desc|slice:"0:100"}}... -->
                                     <!-- <a href="/shop/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-primary cart">Quick View</button></a> -->
                                 </div>
@@ -175,6 +226,10 @@
         </div>
         {% endfor %}
         <!-- </div> -->
+        <a href="{% url 'AddForm' %}"><button class="btn btn-home btn-xl text-uppercase js-scroll-trigger"
+                style=" margin-top: 4%; margin-left: 38%;">Create a Product</button></a>
+
+
     </div>
 </section>
 
@@ -209,9 +264,36 @@
     var userlogged = document.getElementById("userlogged").value;
     var product_owner = document.getElementById("product_owner").value;
 
-    if (product_owner == userlogged) {
+
+    if (product_owner != userlogged) {
         document.getElementById("prodhide").style.display = "none";
     }
+
+    // <button id="delbtn" class="btn btn-danger" onclick="sure()">DELETE</button>
+    //                                 <p id="sure">Are You Sure</p>
+    //                                 <button id="delyes" class="btn btn-success" onclick="yesdel()">Yes</button>
+    //                                 <button id="delne" class="btn btn-danger" onclick="nodel()">No</button>
+
+    // function sure() {
+    //     document.getElementById('delbtn').hidden = true;
+    //     document.getElementById('sure').hidden = false;
+    //     document.getElementById('delyes').hidden = false;
+    //     document.getElementById('delno').hidden = false;
+
+    // }
+
+    // function yesdel() {
+
+        
+
+
+    // }
+
+    // function nodel() {
+
+
+    // }
+
 
 </script>
 
