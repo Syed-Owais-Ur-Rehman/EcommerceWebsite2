@@ -1,5 +1,15 @@
 {% extends 'shop/basic1.html' %}
 
+{% block title %}<title>SignUp</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a href="{% url 'ShopHome' %}" class="nav-link js-scroll-trigger navcol">Shop</a></li>
+<li class="nav-item"><a href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
+</li>
+<li class="nav-item"><a class="nav-link js-scroll-trigger navcol" style="color: brown; font-weight: bolder;">Signup</a></li>
+{% endblock %}
+
 {% block masthead %}
 
 <header class="masthead mhdefault">
