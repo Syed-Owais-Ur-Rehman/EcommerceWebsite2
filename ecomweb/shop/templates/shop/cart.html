@@ -171,6 +171,27 @@
         font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         color: #212529;
     }
+
+    .btn-home {
+        color: #fed136;
+        background-color: #212529;
+        border-color: #fed136;
+    }
+
+    .btn-home:hover {
+        color: #fed136;
+        background-color: #26282b;
+        border-color: #fec503;
+    }
+
+    .btn-home:focus,
+    .btn-home.focus {
+        color: #fed136;
+        background-color: black;
+        border-color: #fec503;
+        box-shadow: 0 0 0 0.2rem rgba(254, 216, 84, 0.5);
+    }
+    
 </style>
 
 
@@ -184,6 +205,8 @@
 
 
 <div class="container">
+    <button onclick="clearall()" class="btn btn-home btn-xl text-uppercase js-scroll-trigger"
+        style=" margin-top: -16%;">Clear Cart</button>
     <div class="cartitemrow-itemtitle">
         <span class="itemlabels">
             <h2 class="section-heading text-uppercase" style="font-size: 200%;">ITEM</h2>
@@ -252,6 +275,7 @@
             let itemprice = Math.round(itemarray[2] * 100) / 100;
             let itemdesc = itemarray[3]
             let itemimage = itemarray[4]
+            let itemid = parseInt(itemarray[5])
             total = total + itemprice;
             // sum = sum + qty;
             mystr = `
@@ -266,7 +290,7 @@
     </div>
     <div class="checkoutitemdesc">
         <div class="CartTableRow-itemTitle-1MDgZ">
-            <a href="https://hester-demo.squarespace.com/shop/lemons" class="itemtitle prodpagelink"><b>${itemname}</b></a>
+            <a href="/shop/productview/${itemid}" class="itemtitle prodpagelink"><b>${itemname}</b></a>
         </div>
         <div style="opacity: 0.5;"></div>
     </div>
@@ -283,24 +307,12 @@
 
     document.getElementById('cart').innerHTML = Object.keys(cart).length;
     document.getElementById('total').innerHTML = '$' + total;
-// var totalsum = 0;
-// var len = Object.keys(cart).length;
-// console.log(len);
-// for (item in cart) {
-//     let itemstring = item;
-//     var l = len -1;
-//     let itemarray = itemstring.split(" % ");
-//     let itemprice = itemarray[2];
-//     totalsum = Math.round((parseFloat(totalsum) + parseFloat(itemprice)) * 100)/100;
-//     console.log(l);
-//     if (l=0) {
-//         mystr2 = `$${totalsum}`;
-//         $('#totalsum').append(mystr2);
-//         continue
-//     }
 
-// }
-
+    function clearall() {
+        // console.log('it works')
+        location.reload();
+        localStorage.clear();
+    }
 
 </script>
 {% endblock %}
