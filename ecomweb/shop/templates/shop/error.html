@@ -1,0 +1,80 @@
+{% extends 'shop/basic2.html' %}
+{% load static %}
+{% block title %}<title>Sign Up Successful</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a  href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
+</li>
+<li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+<a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
+    style="margin-left: 5px; margin-right: -326px; margin-top: -16px; width: 26%;"><i class="fab fa-opencart nav-item"
+    style="width: 110%; height: 50px; margin-top: -11%; margin-bottom: -20%; margin-right: -79.5%;"></i>
+    </li><span id="cart">0</span></a>
+
+{% endblock %}
+{% block masthead %}
+
+<style>
+    body.bodypic {
+        padding-top: 10.5rem;
+        padding-bottom: 6rem;
+        text-align: center;
+        color: #fff;
+        background-image: url("{% static 'shop/pics/h32.jpg' %}");
+        background-repeat: no-repeat;
+        background-attachment: scroll;
+        background-position: center center;
+        background-size: cover;
+    }
+
+
+    .btn-home {
+        color: #fed136;
+        background-color: #212529;
+        border-color: #fed136;
+    }
+
+    .btn-home:hover {
+        color: #fed136;
+        background-color: #26282b;
+        border-color: #fec503;
+    }
+
+    .btn-home:focus,
+    .btn-home.focus {
+        color: #fed136;
+        background-color: black;
+        border-color: #fec503;
+        box-shadow: 0 0 0 0.2rem rgba(254, 216, 84, 0.5);
+    }
+
+
+</style>
+
+<!-- {% for message in messages %}
+<div class="alert alert-{{ message.tags }}" style="margin-top: 86px;"role="alert">
+    <h4 class="alert-heading" style="text-transform: uppercase;">{{ message.tags }}!</h4>
+    <p>{{ message }}</p>
+    <hr>
+  </div>
+{% endfor %} -->
+
+
+<header class="masthead mhdefault" style="padding-top: 1.5rem;">
+    <div class="signupwidth" style="background-color: rgba(0,0,0,0.9); border-radius: 76px;">
+        
+        <div class="masthead-heading text-uppercase"
+            style="color: white; text-shadow: 2px 2px 4px black; margin-bottom: 16%; line-height: inherit; font-size: 400%;">
+            404 Not Found</div>
+
+        <a href="{% url 'ShopHome' %}"><button class="btn btn-home btn-xl text-uppercase js-scroll-trigger"
+        style="margin-top: -5%; margin-left: -2%;">Back To Shop</button></a>
+
+    </div>
+
+    
+
+</header>
+
+{% endblock %}
