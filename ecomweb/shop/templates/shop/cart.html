@@ -1,5 +1,17 @@
 {% extends 'shop/basic1.html' %}
 
+{% block title %}<title>Shopping Cart</title>{% endblock %}
+
+
+{% block navlist %}
+<li class="nav-item"><a href="{% url 'ShopHome' %}" class="nav-link js-scroll-trigger navcol">Shop</a></li>
+<li class="nav-item"><a href="{% url 'Login' %}" class="nav-link js-scroll-trigger navcol">Login</a>
+</li>
+<li class="nav-item"><a href="{% url 'SignUp' %}" class="nav-link js-scroll-trigger navcol">Signup</a></li>
+{% endblock %}
+
+
+
 {% block masthead %}
 
 <style>
@@ -119,10 +131,12 @@
         border: none;
         padding: 0;
     }
+
     .itemtitle {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
         font-size: 21px;
     }
+
     .prodpagelink {
         color: #fed136;
         opacity: 0.80;
@@ -147,8 +161,16 @@
         margin-top: 23px;
         margin-bottom: 51px;
     }
-    
 
+    .hiddendiv {
+        padding-top: 10%;
+        padding-bottom: 8%;
+        font-weight: bolder;
+        text-align: center;
+        font-size: 30px;
+        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        color: #212529;
+    }
 </style>
 
 
@@ -156,7 +178,8 @@
 <header class="masthead mhdefault" style="padding-top: 3.5rem;">
     <div class="container check">
         <div class="masthead-heading text-uppercase" style="color:#212529;">Shopping Cart</div>
-        <div class="masthead-subheading" style="color:#212529; padding-left: 3%;">Preview Your Items Before Checkout</div>
+        <div class="masthead-subheading" style="color:#212529; padding-left: 3%;">Preview Your Items Before Checkout
+        </div>
 </header>
 
 
@@ -187,16 +210,18 @@
 
 </div>
 
-    <div class="cart-subtotal">
-        <span style="font-size: 16px; margin-right: 15px;">
-            <span><h2 class="section-heading text-uppercase" style="font-size: 200%; padding-right: 8%;">SUBTOTAL</h2></span>
+<div class="cart-subtotal">
+    <span style="font-size: 16px; margin-right: 15px;">
+        <span>
+            <h2 class="section-heading text-uppercase" style="font-size: 200%; padding-right: 8%;">SUBTOTAL</h2>
         </span>
-        <span id="total" class="itemtitle totalamount"></span>
-    </div>
+    </span>
+    <span id="total" class="itemtitle totalamount"></span>
+</div>
 
-    <div class="checkoutbtn"">
-        <a href="{% url 'Checkout' %}" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Checkout</a>
-    </div>
+<div class="checkoutbtn"">
+        <a href=" {% url 'Checkout' %}" class="btn btn-primary btn-xl text-uppercase js-scroll-trigger">Checkout</a>
+</div>
 </div>
 
 {% endblock %}
@@ -204,30 +229,32 @@
 {% block js %}
 <script>
 
-if (localStorage.getItem('cart') == null) {
-    var cart = {};
-} else {
-    cart = JSON.parse(localStorage.getItem('cart'));
-}
-console.log(cart);
-var sum = 0;
-var total = 0;
-if ($.isEmptyObject(cart)) {
-    //if object is empty
-    mystr = `<div class="masthead-heading text-uppercase" style="color:#212529;">Shopping Cart is Empty!</div>`
-    $('#items').append(mystr);
-} else {
-    for(item in cart) {
-        let itemstring = item;
-        let itemarray = itemstring.split(" % ")
-        let itemname = itemarray[0]
-        let itemcategory = itemarray[1]
-        let itemprice = Math.round(itemarray[2] * 100)/100;
-        let itemdesc = itemarray[3]
-        let itemimage = itemarray[4]
-        total = total + itemprice;
-        // sum = sum + qty;
-        mystr = `
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+    console.log(cart);
+    var sum = 0;
+    var total = 0;
+    if ($.isEmptyObject(cart)) {
+        //if object is empty
+
+        mystr = `<div class="masthead-heading text-uppercase hiddendiv">Shopping Cart is Empty!</div>`
+        $('#items').append(mystr);
+
+    } else {
+        for (item in cart) {
+            let itemstring = item;
+            let itemarray = itemstring.split(" % ")
+            let itemname = itemarray[0]
+            let itemcategory = itemarray[1]
+            let itemprice = Math.round(itemarray[2] * 100) / 100;
+            let itemdesc = itemarray[3]
+            let itemimage = itemarray[4]
+            total = total + itemprice;
+            // sum = sum + qty;
+            mystr = `
 
 <div class="cartitemrow-itemlist">
     <div class="cartitemrow-remove">
@@ -246,16 +273,16 @@ if ($.isEmptyObject(cart)) {
     <div class="cartitemrow-itemquantity itemtitle"><b>${itemcategory}</b></div>
     <div class="cartitemrow-itemprice itemtitle" style="padding-right: 4.4%;"><b>$${itemprice}</b></div>
 </div>
-` 
-        $('#items').append(mystr);
-    
+`
+            $('#items').append(mystr);
+
+        }
+
+
     }
-    
 
-}
-
-document.getElementById('cart').innerHTML = Object.keys(cart).length;
-document.getElementById('total').innerHTML = '$' + total;
+    document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    document.getElementById('total').innerHTML = '$' + total;
 // var totalsum = 0;
 // var len = Object.keys(cart).length;
 // console.log(len);
