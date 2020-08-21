@@ -10,6 +10,7 @@ urlpatterns = [
     path("signup/", views.signup, name = "SignUp"),
     path("success/", views.success, name = "Success"),
     path("error/", views.error, name = "Error"),
+    path("transaction/", views.transaction, name = "Transaction"),
     path("cart/", views.cart, name = "Cart"),
     path("checkout/", views.checkout, name = "Checkout"),
     path("productview/<int:myid>", views.productview, name = "ProductView"),
