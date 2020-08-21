@@ -8,21 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Sign Up</title>
+    {% block title %}{% endblock %}
     <style>
         @charset "UTF-8";
-
-        /*!
-        * Start Bootstrap - Agency v6.0.2 (https://startbootstrap.com/template-overviews/agency)
-        * Copyright 2013-2020 Start Bootstrap
-        * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-agency/blob/master/LICENSE)
-        */
-        /*!
-         * Bootstrap v4.5.0 (https://getbootstrap.com/)
-         * Copyright 2011-2020 The Bootstrap Authors
-         * Copyright 2011-2020 Twitter, Inc.
-         * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-         */
         :root {
             --blue: #007bff;
             --indigo: #6610f2;
@@ -11794,6 +11782,12 @@
         .webfont {
             font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"
         }
+
+        .cartcol {
+            color: brown
+        }
+
+
     </style>
     <!-- Stripe Script -->
     <!-- <script src="https://js.stripe.com/v3/"></script> -->
@@ -11824,13 +11818,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger navcol" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger navcol" href="#portfolio">Portfolio</a>
+                    <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link js-scroll-trigger navcol">Home</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger navcol" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger navcol" href="#team">Team</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger navcol" href="#contact">Contact</a></li>
-                    <li class="nav-item"><a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol" href="#contact">Cart(<span id="cart">0</span>)</a></li>
+                    {% block navlist %}{% endblock %}
+                    <a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
+                        style="margin-left: 5px; margin-right: -326px; margin-top: -8px; width: 20%;"><i
+                            class="fab fa-opencart nav-item"
+                            style="width: 100%; height: 40px; margin-top: -11%; margin-bottom: -15%; margin-right: -73.5%;"></i>
+                        </li><span id="cart">0</span></a>
 
 
                 </ul>
