@@ -61,7 +61,7 @@
         <p style="color: green;">Rs.{{product.price}}</p>
         <p>{{product.desc}}</p>
 
-        <button id="{{product.product_name}} % {{product.category}} % {{product.price}} % {{product.desc}} % {{product.image.url}}" class="btn btn-home btn-xl text-uppercase js-scroll-trigger cart" style=" margin-top: 10%; margin-left: 34%;">Add To Cart</a>
+        <button id="{{product.product_name}} % {{product.category}} % {{product.price}} % {{product.desc}} % {{product.image.url}} % {{i.id}}" class="btn btn-home btn-xl text-uppercase js-scroll-trigger cart" style=" margin-top: 10%; margin-left: 34%;">Add To Cart</a>
 
 
 
@@ -74,7 +74,6 @@
 
 
 {% endblock %}
-
 
 
 {% block js %}
