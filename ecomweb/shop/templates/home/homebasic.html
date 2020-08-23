@@ -10,6 +10,7 @@
     <title>Articom - Where Your Art Matters</title>
     <style>
         @charset "UTF-8";
+
         :root {
             --blue: #007bff;
             --indigo: #6610f2;
@@ -40,6 +41,7 @@
             --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         }
+
 
         *,
         *::before,
@@ -11574,8 +11576,6 @@
             font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
         }
-
-
     </style>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
@@ -11603,7 +11603,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link js-scroll-trigger"><img src="{% static 'shop/pics/logo1.jpg' %}" style="border-radius: 71%; width: 38%; display: inline-flex; margin-left: -184%; margin-top: -12%;"></a></li>
+                    <!-- <img src="{% static 'shop/pics/logo1.jpg' %}" style="border-radius: 71%; width: 38%; display: inline-flex; margin-left: -184%; margin-top: -12%;"> -->
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#services">Services</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#portfolio">Best Selling Items</a>
                     </li>
@@ -11611,13 +11611,12 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#team">Team</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#contact">Contact</a></li>
                     <a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartid"
-                        style="margin-left: 5px; margin-right: -326px; width: 20%;"><i
-                            class="fab fa-opencart nav-item"
+                        style="margin-left: 5px; margin-right: -326px; width: 20%;"><i class="fab fa-opencart nav-item"
                             style="width: 55%;
                             height: 50px;
                             margin-top: -9%;
-                            margin-bottom: -8%;
-                            margin-right: -35.5%;"></i>
+                            margin-bottom: -10%;
+                            margin-right: -39.5%;"></i>
                         </li><span id="cart">0</span></a>
                 </ul>
             </div>
@@ -11625,11 +11624,11 @@
     </nav>
 
 
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 
 
 
-   
+
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
@@ -11653,26 +11652,26 @@
 
 
     console.log('working');
-  if (localStorage.getItem('cart') == null) {
-    var cart = {};
-  }
-  else {
-    cart = JSON.parse(localStorage.getItem('cart'));
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
-  }
-  $('.cart').click(function () {
-    console.log('clicked');
-    var idstr = this.id.toString();
-    console.log(idstr);
-    if (cart[idstr] != undefined) {
-      cart[idstr] = 1;
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
     }
     else {
-      cart[idstr] = 1;
+        cart = JSON.parse(localStorage.getItem('cart'));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
     }
-    console.log(cart);
-    localStorage.setItem('cart', JSON.stringify(cart));
-    document.getElementById('cart').innerHTML = Object.keys(cart).length;
-  });
+    $('.cart').click(function () {
+        console.log('clicked');
+        var idstr = this.id.toString();
+        console.log(idstr);
+        if (cart[idstr] != undefined) {
+            cart[idstr] = 1;
+        }
+        else {
+            cart[idstr] = 1;
+        }
+        console.log(cart);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart').innerHTML = Object.keys(cart).length;
+    });
 
 </script>
