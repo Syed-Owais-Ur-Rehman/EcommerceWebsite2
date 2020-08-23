@@ -148,7 +148,7 @@
             style="color: gold; text-shadow: 2px 2px 18px black; line-height: inherit; font-size: 500%;">
             My Dashboard</div>
         <div class="masthead-heading text-uppercase" style="color:#212529;"></div>
-        <p id="userlogged" style="display: none;">{{request.user}}</p>
+        <input type="hidden" id="userlogged" value="{{request.user}}">
     </div>
 </header>
 {% endif %}
@@ -190,14 +190,14 @@
                                     class="card-img-top" alt="...">
                                 <div class="overlay">
                                     <a href="/shop/productview/{{i.id}}"><button class="btn btn-primary overlaybutton">View Product</button></a>
-                                    <button id="delbtn" class="btn btn-danger" onclick="sure()">DELETE</button>
+                                    <button id="delbtn" class="btn btn-danger"></button>
                                     <!-- <p id="sure">Are You Sure</p>
                                     <button id="delyes" class="btn btn-success" onclick="yesdel()">Yes</button>
                                     <button id="delne" class="btn btn-danger" onclick="nodel()">No</button> -->
 
                                 </div>
                                 <div class="card-body">
-                                    <p id="product_owner" style="display: none;">{{i.owner}}</p>
+                                    <input type="hidden" id="product_owner" value="{{i.owner}}">
                                     <p class="card-title"><b>Category:</b> {{i.category}}</p>
                                     <p class="card-title"><b>Name:</b> {{i.product_name}}</p>
                                     <p class="card-text"><b>Price:</b><span style="color: green;"> $ {{i.price}}</span></p>
@@ -262,7 +262,9 @@
     });
 
     var userlogged = document.getElementById("userlogged").value;
+    console.log(userlogged)
     var product_owner = document.getElementById("product_owner").value;
+    console.log(product_owner)
 
 
     if (product_owner != userlogged) {
