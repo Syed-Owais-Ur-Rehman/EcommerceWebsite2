@@ -11818,14 +11818,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
+                    <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link js-scroll-trigger navcol" style="font-family: Ink Free; color: brown; font-size: 35px; margin-left: -625px; margin-top: -1.3%; margin-bottom: -3%; font-weight: bolder; position: fixed;">Articom</a></li>
                     <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link js-scroll-trigger navcol">Home</a>
                     </li>
                     {% block navlist %}{% endblock %}
-                    <a href="{% url 'Cart' %}" class="nav-link js-scroll-trigger navcol cartcol"
-                        style="margin-left: 5px; margin-right: -326px; margin-top: -8px; width: 20%;"><i
-                            class="fab fa-opencart nav-item"
-                            style="width: 100%; height: 40px; margin-top: -11%; margin-bottom: -15%; margin-right: -73.5%;"></i>
-                        </li><span id="cart">0</span></a>
+                    
 
 
                 </ul>
