@@ -32,5 +32,17 @@ class Customer(models.Model):
     order_date = models.DateField()
 
 
-#     def __str__(self):
-#         return self.name
+    def __str__(self):
+        return self.fname
+
+class Contact(models.Model):
+    contact_id = models.AutoField
+    contact_name = models.CharField(max_length=20)
+    email = models.CharField(max_length=70, default="")
+    message = models.CharField(max_length=300)
+    phone = models.PositiveIntegerField()
+    contact_date = models.DateField()
+
+
+    def __str__(self):
+        return self.contact_name
